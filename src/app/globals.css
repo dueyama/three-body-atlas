@@ -154,6 +154,27 @@ input {
   font-size: 0.96rem;
 }
 
+.classificationGuide {
+  max-width: 900px;
+  padding: 13px 15px;
+  color: #cfd5dc;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+}
+
+.classificationGuide strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.classificationGuide p {
+  margin: 0;
+  font-size: 0.94rem;
+}
+
 .dimensionTabs {
   display: inline-flex;
   align-items: center;
@@ -392,16 +413,41 @@ input {
   opacity: 0.76;
 }
 
+.classificationBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 13px;
+}
+
+.orbitBadge,
 .stabilityBadge {
   display: inline-flex;
   align-items: center;
   min-height: 26px;
-  margin-top: 13px;
   padding: 0 9px;
   border: 1px solid var(--line);
   border-radius: 999px;
   font-size: 0.78rem;
   font-weight: 800;
+}
+
+.orbitBadge.periodic {
+  color: #76d7ff;
+  background: rgba(45, 156, 219, 0.13);
+  border-color: rgba(118, 215, 255, 0.34);
+}
+
+.orbitBadge.relative-equilibrium {
+  color: #d0b6ff;
+  background: rgba(179, 140, 255, 0.13);
+  border-color: rgba(208, 182, 255, 0.34);
+}
+
+.orbitBadge.transient {
+  color: #ff9a9b;
+  background: rgba(240, 93, 94, 0.12);
+  border-color: rgba(240, 93, 94, 0.38);
 }
 
 .stabilityBadge.stable {
@@ -420,6 +466,12 @@ input {
   color: #ff9a9b;
   background: rgba(240, 93, 94, 0.12);
   border-color: rgba(240, 93, 94, 0.38);
+}
+
+.stabilityBadge.unclassified {
+  color: #cfd5dc;
+  background: rgba(207, 213, 220, 0.08);
+  border-color: rgba(207, 213, 220, 0.24);
 }
 
 .stabilityText {
@@ -490,18 +542,22 @@ input {
   backdrop-filter: blur(8px);
 }
 
-.stabilityDot {
+.orbitDot {
   width: 9px;
   height: 9px;
   flex: 0 0 auto;
   border-radius: 50%;
 }
 
-.stabilityDot.unstable {
-  background: var(--accent);
+.orbitDot.periodic {
+  background: #76d7ff;
 }
 
-.stabilityDot.chaotic {
+.orbitDot.relative-equilibrium {
+  background: #d0b6ff;
+}
+
+.orbitDot.transient {
   background: var(--danger);
 }
 

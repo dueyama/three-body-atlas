@@ -16,7 +16,11 @@ import { LanguageSelector } from "./LanguageSelector";
 import { OrbitThumbnail } from "./OrbitThumbnail";
 
 function SolutionCard({ solution }: { solution: ThreeBodySolution }) {
+  const { t } = useUiText();
   const { text } = useSolutionText(solution.slug);
+  const classificationLine = `${t.orbitClassLabel}: ${
+    t.orbitClassLabels[solution.orbitClass]
+  } / ${t.stabilityClassLabel}: ${t.stabilityLabels[solution.stability]}`;
 
   return (
     <Link className="solutionCard" href={`/solutions/${solution.slug}`}>
@@ -24,13 +28,20 @@ function SolutionCard({ solution }: { solution: ThreeBodySolution }) {
         <div className="cardTop">
           <div>
             <p className="family">{text.family}</p>
-            <span className={`stabilityBadge ${solution.stability}`}>{text.stabilityLabel}</span>
+            <div className="classificationBadges" aria-label={t.classificationLabel}>
+              <span className={`orbitBadge ${solution.orbitClass}`}>
+                {t.orbitClassLabels[solution.orbitClass]}
+              </span>
+              <span className={`stabilityBadge ${solution.stability}`}>
+                {t.stabilityLabels[solution.stability]}
+              </span>
+            </div>
           </div>
           <OrbitThumbnail label={`${text.name} orbit thumbnail`} solution={solution} />
         </div>
         <h2>{text.name}</h2>
         <p>{text.summary}</p>
-        <p className="stabilityText">{text.stabilitySummary}</p>
+        <p className="stabilityText">{classificationLine}</p>
       </div>
       <div className="cardFooter">
         <span>{text.sourceNote}</span>
@@ -68,6 +79,10 @@ export function HomePage() {
         <h1>{t.heroTitle}</h1>
         <p>{t.heroBody}</p>
         <p className="catalogNote">{t.catalogNote}</p>
+        <div className="classificationGuide">
+          <strong>{t.classificationGuideTitle}</strong>
+          <p>{t.classificationGuideBody}</p>
+        </div>
       </section>
 
       <div className="dimensionTabs" aria-label={t.dimensionTabsLabel} role="tablist">

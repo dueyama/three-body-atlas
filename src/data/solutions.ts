@@ -17,7 +17,8 @@ function equalMassCollinearOrbit(
   return {
     slug,
     dimension: "2d",
-    stability: "unstable",
+    orbitClass: "periodic",
+    stability: "unclassified",
     recommendedDt,
     viewScale,
     trailLength: Math.max(trailLength, Math.ceil(period / recommendedDt) + 8),
@@ -67,6 +68,7 @@ function spatialPeriodicOrbit(
   return {
     slug,
     dimension: "3d",
+    orbitClass: "periodic",
     stability,
     recommendedDt,
     viewScale,
@@ -105,6 +107,7 @@ export const solutions: ThreeBodySolution[] = [
   {
     slug: "figure-eight",
     dimension: "2d",
+    orbitClass: "periodic",
     stability: "stable",
     recommendedDt: 0.006,
     viewScale: 3.2,
@@ -138,6 +141,7 @@ export const solutions: ThreeBodySolution[] = [
   {
     slug: "lagrange-equilateral",
     dimension: "2d",
+    orbitClass: "relative-equilibrium",
     stability: "unstable",
     recommendedDt: 0.0025,
     viewScale: 2.8,
@@ -250,6 +254,7 @@ export const solutions: ThreeBodySolution[] = [
   {
     slug: "pythagorean",
     dimension: "2d",
+    orbitClass: "transient",
     stability: "chaotic",
     recommendedDt: 0.0025,
     viewScale: 8.4,

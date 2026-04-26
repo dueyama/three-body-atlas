@@ -8,7 +8,8 @@ export type BodyState = {
   label: string;
 };
 
-export type StabilityKind = "stable" | "unstable" | "chaotic";
+export type OrbitClassKind = "periodic" | "relative-equilibrium" | "transient";
+export type StabilityKind = "stable" | "unstable" | "unclassified" | "chaotic";
 export type ReferenceKind = "relative-equilibrium" | "periodic-reference" | "transient";
 export type IntegratorKind = "rk4" | "rk45";
 export type SolutionDimension = "2d" | "3d";
@@ -16,6 +17,7 @@ export type SolutionDimension = "2d" | "3d";
 export type ThreeBodySolution = {
   slug: string;
   dimension: SolutionDimension;
+  orbitClass: OrbitClassKind;
   stability: StabilityKind;
   recommendedDt: number;
   viewScale: number;

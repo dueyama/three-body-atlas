@@ -24,7 +24,14 @@ export function SolutionDetailPage({ solution }: { solution: ThreeBodySolution }
         <div />
         <div>
           <p className="family">{text.family}</p>
-          <span className={`stabilityBadge ${solution.stability}`}>{text.stabilityLabel}</span>
+          <div className="classificationBadges" aria-label={t.classificationLabel}>
+            <span className={`orbitBadge ${solution.orbitClass}`}>
+              {t.orbitClassLabels[solution.orbitClass]}
+            </span>
+            <span className={`stabilityBadge ${solution.stability}`}>
+              {t.stabilityLabels[solution.stability]}
+            </span>
+          </div>
           <h1>{text.name}</h1>
           <p>{text.summary}</p>
           <p className="stabilityDetail">{text.stabilitySummary}</p>

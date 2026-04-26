@@ -578,7 +578,7 @@ export function Simulator({
     <section className="simulator">
       {shouldDrawReference ? (
         <div className="referenceLegend">
-          <span className={`stabilityDot ${solution.stability}`} />
+          <span className={`orbitDot ${solution.orbitClass}`} />
           <span>
             {isPeriodicReference
               ? t.periodicReference

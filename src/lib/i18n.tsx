@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import type { OrbitClassKind, StabilityKind } from "@/types";
 
 export type Locale = "en" | "ja" | "zh";
 export type LocalePreference = Locale | "auto";
@@ -31,6 +32,13 @@ type UiText = {
   heroBody: string;
   catalogNote: string;
   solutionGridLabel: string;
+  classificationGuideTitle: string;
+  classificationGuideBody: string;
+  classificationLabel: string;
+  orbitClassLabel: string;
+  stabilityClassLabel: string;
+  orbitClassLabels: Record<OrbitClassKind, string>;
+  stabilityLabels: Record<StabilityKind, string>;
   dimensionTabsLabel: string;
   dimension2d: string;
   dimension3d: string;
@@ -84,6 +92,23 @@ const uiText: Record<Locale, UiText> = {
     catalogNote:
       "Start with 2D choreography, relative equilibrium, and scattering, then switch to the new 3D tab for spatial periodic examples.",
     solutionGridLabel: "Known three-body solutions",
+    classificationGuideTitle: "Classification rule",
+    classificationGuideBody:
+      "Orbit type and stability are shown separately. Most entries are periodic solutions; Lagrange is a relative equilibrium, and Pythagorean is a transient scattering example. Stability is only labeled stable or unstable where this app has an explicit source or classical criterion.",
+    classificationLabel: "Orbit classification",
+    orbitClassLabel: "Orbit type",
+    stabilityClassLabel: "Stability",
+    orbitClassLabels: {
+      periodic: "Periodic solution",
+      "relative-equilibrium": "Relative equilibrium",
+      transient: "Transient scattering",
+    },
+    stabilityLabels: {
+      stable: "Linearly stable",
+      unstable: "Unstable",
+      unclassified: "Stability not classified",
+      chaotic: "Chaotic / escape",
+    },
     dimensionTabsLabel: "Orbit dimension",
     dimension2d: "2D",
     dimension3d: "3D",
@@ -169,6 +194,23 @@ const uiText: Record<Locale, UiText> = {
     catalogNote:
       "周期的に舞う軌道、形を保って回る相対平衡、秩序に見えて最後は飛び散る散乱例。2Dと3Dをタブで切り替えて眺めます。",
     solutionGridLabel: "既知の3体問題解",
+    classificationGuideTitle: "分類ルール",
+    classificationGuideBody:
+      "このアプリでは「軌道型」と「安定性」を分けて表示します。ほとんどは周期解ですが、Lagrange は形を保って回る相対平衡、Pythagorean は周期解ではない過渡的な散乱例です。安定・不安定は、古典条件または出典上で明示できるものだけに付けます。",
+    classificationLabel: "軌道の分類",
+    orbitClassLabel: "軌道型",
+    stabilityClassLabel: "安定性",
+    orbitClassLabels: {
+      periodic: "周期解",
+      "relative-equilibrium": "相対平衡",
+      transient: "過渡散乱",
+    },
+    stabilityLabels: {
+      stable: "線形安定",
+      unstable: "不安定",
+      unclassified: "安定性未分類",
+      chaotic: "カオス的脱出",
+    },
     dimensionTabsLabel: "軌道の次元",
     dimension2d: "2D",
     dimension3d: "3D",
@@ -253,6 +295,23 @@ const uiText: Record<Locale, UiText> = {
     catalogNote:
       "这里有周期编舞、保持形状旋转的相对平衡，也有看似有序但最终散开的散射例子。现在可用标签页切换 2D 和 3D。",
     solutionGridLabel: "已知三体问题解",
+    classificationGuideTitle: "分类规则",
+    classificationGuideBody:
+      "本应用把轨道类型和稳定性分开显示。大多数条目是周期解；Lagrange 是保持形状旋转的相对平衡，Pythagorean 是非周期的暂态散射例。只有在有明确来源或经典判据时，才标注稳定或不稳定。",
+    classificationLabel: "轨道分类",
+    orbitClassLabel: "轨道类型",
+    stabilityClassLabel: "稳定性",
+    orbitClassLabels: {
+      periodic: "周期解",
+      "relative-equilibrium": "相对平衡",
+      transient: "暂态散射",
+    },
+    stabilityLabels: {
+      stable: "线性稳定",
+      unstable: "不稳定",
+      unclassified: "稳定性未分类",
+      chaotic: "混沌 / 逃逸",
+    },
     dimensionTabsLabel: "轨道维度",
     dimension2d: "2D",
     dimension3d: "3D",
