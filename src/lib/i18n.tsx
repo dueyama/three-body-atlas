@@ -842,16 +842,16 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
       sourceUrl: threeDInitialConditionsUrl,
       sourceLinkLabel: "Open the 3D initial-condition set",
     },
-    "spatial-o2-equal-mass": {
+    "spatial-o6-equal-mass": {
       family: "3D equal-mass periodic orbit",
-      name: "Spatial O2",
+      name: "Spatial O6",
       stabilityLabel: "3D periodic / unstable",
       stabilitySummary:
         "Status: linearly unstable in Li and Liao's 3D initial-condition table. Small perturbations are expected to grow in the linearized dynamics.",
       summary:
-        "Orbit: a compact 3D loop with a stronger vertical offset and unstable linear classification.",
+        "Orbit: a longer 3D loop with a wide in-plane sweep and unstable linear classification.",
       sourceNote:
-        "Source: [5] Li-Liao 3D table O_2(1.0); z0 = 0.426476007762008, T = 6.36267196772112.",
+        "Source: [5] Li-Liao 3D table O_6(1.0); z0 = 0.257381108694003, T = 13.6540158417866.",
       sourceUrl: threeDInitialConditionsUrl,
       sourceLinkLabel: "Open the 3D initial-condition set",
     },
@@ -1095,15 +1095,15 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
       sourceUrl: threeDInitialConditionsUrl,
       sourceLinkLabel: "3D初期条件セットを開く",
     },
-    "spatial-o2-equal-mass": {
+    "spatial-o6-equal-mass": {
       family: "3D等質量周期軌道",
-      name: "Spatial O2",
+      name: "Spatial O6",
       stabilityLabel: "3D周期解 / 不安定",
       stabilitySummary:
         "状態: Li と Liao の3D初期条件表では線形不安定です。線形化した運動では小さなずれが成長すると考えます。",
-      summary: "軌道: やや大きい鉛直オフセットを持つ、コンパクトな3D不安定ループです。",
+      summary: "軌道: 面内方向に大きく振れる、比較的見やすい長めの3D不安定ループです。",
       sourceNote:
-        "出典: [5] Li-Liao 3D表 O_2(1.0); z0 = 0.426476007762008, T = 6.36267196772112。",
+        "出典: [5] Li-Liao 3D表 O_6(1.0); z0 = 0.257381108694003, T = 13.6540158417866。",
       sourceUrl: threeDInitialConditionsUrl,
       sourceLinkLabel: "3D初期条件セットを開く",
     },
@@ -1340,15 +1340,15 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
       sourceUrl: threeDInitialConditionsUrl,
       sourceLinkLabel: "打开 3D 初始条件集",
     },
-    "spatial-o2-equal-mass": {
+    "spatial-o6-equal-mass": {
       family: "3D 等质量周期轨道",
-      name: "Spatial O2",
+      name: "Spatial O6",
       stabilityLabel: "3D 周期解 / 不稳定",
       stabilitySummary:
         "状态: 在 Li 和 Liao 的 3D 初始条件表中线性不稳定。在线性化动力学中，小扰动预计会增长。",
-      summary: "轨道: 具有较强垂直偏移的紧凑 3D 回路，线性分类为不稳定。",
+      summary: "轨道: 具有较宽面内扫动的较长 3D 回路，线性分类为不稳定。",
       sourceNote:
-        "来源: [5] Li-Liao 3D 表 O_2(1.0); z0 = 0.426476007762008, T = 6.36267196772112。",
+        "来源: [5] Li-Liao 3D 表 O_6(1.0); z0 = 0.257381108694003, T = 13.6540158417866。",
       sourceUrl: threeDInitialConditionsUrl,
       sourceLinkLabel: "打开 3D 初始条件集",
     },
