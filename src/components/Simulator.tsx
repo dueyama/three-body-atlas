@@ -9,22 +9,40 @@ import type { IntegratorKind, ThreeBodySolution, Vector3 } from "@/types";
 type TrailPoint = Vector3;
 const historyLimit = 18000;
 const autoRotateStep = 0.0022;
+const minPitch = -1.35;
+const maxPitch = 1.35;
 
 function toTrailPoint(body: SimBody): TrailPoint {
   return [body.position[0], body.position[1], body.position[2]];
 }
 
-function projectPoint(point: TrailPoint, solution: ThreeBodySolution, yaw: number): [number, number] {
-  const cos = Math.cos(yaw);
-  const sin = Math.sin(yaw);
-  const rotatedX = point[0] * cos - point[1] * sin;
-  const rotatedY = point[0] * sin + point[1] * cos;
+function defaultPitch(solution: ThreeBodySolution) {
+  return solution.dimension === "3d" ? -1.07 : 0;
+}
+
+function clampPitch(value: number) {
+  return Math.min(maxPitch, Math.max(minPitch, value));
+}
+
+function projectPoint(
+  point: TrailPoint,
+  solution: ThreeBodySolution,
+  yaw: number,
+  pitch: number,
+): [number, number] {
+  const yawCos = Math.cos(yaw);
+  const yawSin = Math.sin(yaw);
+  const rotatedX = point[0] * yawCos - point[1] * yawSin;
+  const rotatedY = point[0] * yawSin + point[1] * yawCos;
+  const pitchCos = Math.cos(pitch);
+  const pitchSin = Math.sin(pitch);
+  const tiltedY = rotatedY * pitchCos - point[2] * pitchSin;
 
   if (solution.dimension !== "3d") {
-    return [rotatedX, rotatedY];
+    return [rotatedX, tiltedY];
   }
 
-  return [rotatedX, rotatedY * 0.48 + point[2] * 0.88];
+  return [rotatedX, tiltedY];
 }
 
 function buildReferenceTrails(
@@ -122,11 +140,13 @@ export function Simulator({
   const perturbCountRef = useRef(0);
   const frameRef = useRef<number | null>(null);
   const lastPointerXRef = useRef<number | null>(null);
+  const lastPointerYRef = useRef<number | null>(null);
   const [isRunning, setIsRunning] = useState(true);
   const [speed, setSpeed] = useState(5);
   const [tick, setTick] = useState(0);
   const [zoom, setZoom] = useState(1);
   const [viewYaw, setViewYaw] = useState(0);
+  const [viewPitch, setViewPitch] = useState(() => defaultPitch(solution));
   const [showHistory, setShowHistory] = useState(false);
   const [autoRotate, setAutoRotate] = useState(false);
   const [isDraggingView, setIsDraggingView] = useState(false);
@@ -146,6 +166,7 @@ export function Simulator({
     perturbCountRef.current = 0;
     setZoom(1);
     setViewYaw(0);
+    setViewPitch(defaultPitch(solution));
     setAutoRotate(false);
     setTick(0);
   }, [solution]);
@@ -205,7 +226,7 @@ export function Simulator({
         context.setLineDash(isRelativeEquilibrium || isPeriodicReference ? [10, 8] : [5, 8]);
         context.beginPath();
         trail.forEach((point, pointIndex) => {
-          const [x, y] = projectPoint(point, solution, viewYaw);
+          const [x, y] = projectPoint(point, solution, viewYaw, viewPitch);
           const sx = cx + x * pixelsPerUnit;
           const sy = cy - y * pixelsPerUnit;
           if (pointIndex === 0) {
@@ -231,7 +252,7 @@ export function Simulator({
         context.lineWidth = 1.05;
         context.beginPath();
         trail.forEach((point, pointIndex) => {
-          const [x, y] = projectPoint(point, solution, viewYaw);
+          const [x, y] = projectPoint(point, solution, viewYaw, viewPitch);
           const sx = cx + x * pixelsPerUnit;
           const sy = cy - y * pixelsPerUnit;
           if (pointIndex === 0) {
@@ -254,7 +275,7 @@ export function Simulator({
       context.lineWidth = 1.7;
       context.beginPath();
       trail.forEach((point, pointIndex) => {
-        const [x, y] = projectPoint(point, solution, viewYaw);
+        const [x, y] = projectPoint(point, solution, viewYaw, viewPitch);
         const sx = cx + x * pixelsPerUnit;
         const sy = cy - y * pixelsPerUnit;
         if (pointIndex === 0) {
@@ -268,7 +289,7 @@ export function Simulator({
     });
 
     bodiesRef.current.forEach((body) => {
-      const [px, py] = projectPoint(toTrailPoint(body), solution, viewYaw);
+      const [px, py] = projectPoint(toTrailPoint(body), solution, viewYaw, viewPitch);
       const x = cx + px * pixelsPerUnit;
       const y = cy - py * pixelsPerUnit;
       const radius = 7 + Math.sqrt(body.mass) * 2.2;
@@ -293,6 +314,7 @@ export function Simulator({
     shouldDrawReference,
     showHistory,
     solution,
+    viewPitch,
     viewYaw,
     zoom,
   ]);
@@ -309,26 +331,35 @@ export function Simulator({
   const handlePointerDown = useCallback((event: PointerEvent<HTMLCanvasElement>) => {
     event.preventDefault();
     lastPointerXRef.current = event.clientX;
+    lastPointerYRef.current = event.clientY;
     setIsDraggingView(true);
     event.currentTarget.setPointerCapture(event.pointerId);
   }, []);
 
   const handlePointerMove = useCallback(
     (event: PointerEvent<HTMLCanvasElement>) => {
-      if (!isDraggingView || lastPointerXRef.current === null) {
+      if (
+        !isDraggingView ||
+        lastPointerXRef.current === null ||
+        lastPointerYRef.current === null
+      ) {
         return;
       }
 
       event.preventDefault();
       const deltaX = event.clientX - lastPointerXRef.current;
+      const deltaY = event.clientY - lastPointerYRef.current;
       lastPointerXRef.current = event.clientX;
+      lastPointerYRef.current = event.clientY;
       setViewYaw((value) => value + deltaX * 0.009);
+      setViewPitch((value) => clampPitch(value + deltaY * 0.007));
     },
     [isDraggingView],
   );
 
   const endPointerDrag = useCallback((event: PointerEvent<HTMLCanvasElement>) => {
     lastPointerXRef.current = null;
+    lastPointerYRef.current = null;
     setIsDraggingView(false);
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
@@ -338,8 +369,9 @@ export function Simulator({
   const resetView = useCallback(() => {
     setZoom(1);
     setViewYaw(0);
+    setViewPitch(defaultPitch(solution));
     setAutoRotate(false);
-  }, []);
+  }, [solution]);
 
   const perturb = useCallback(() => {
     perturbCountRef.current += 1;
