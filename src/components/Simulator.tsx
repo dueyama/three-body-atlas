@@ -7,10 +7,18 @@ import { useUiText } from "@/lib/i18n";
 import type { IntegratorKind, ThreeBodySolution, Vector3 } from "@/types";
 
 type TrailPoint = Vector3;
+type ActivePointer = {
+  pointerType: string;
+  x: number;
+  y: number;
+};
+
 const historyLimit = 18000;
 const autoRotateStep = 0.0022;
 const minPitch = -2.75;
 const maxPitch = 2.75;
+const minZoom = 0.08;
+const maxZoom = 5;
 const dragRotationScale = 0.009;
 
 function toTrailPoint(body: SimBody): TrailPoint {
@@ -23,6 +31,14 @@ function defaultPitch(solution: ThreeBodySolution) {
 
 function clampPitch(value: number) {
   return Math.min(maxPitch, Math.max(minPitch, value));
+}
+
+function clampZoom(value: number) {
+  return Math.min(maxZoom, Math.max(minZoom, value));
+}
+
+function pointerDistance(first: ActivePointer, second: ActivePointer) {
+  return Math.hypot(first.x - second.x, first.y - second.y);
 }
 
 function projectPoint(
@@ -142,6 +158,10 @@ export function Simulator({
   const frameRef = useRef<number | null>(null);
   const lastPointerXRef = useRef<number | null>(null);
   const lastPointerYRef = useRef<number | null>(null);
+  const activePointersRef = useRef<Map<number, ActivePointer>>(new Map());
+  const pinchDistanceRef = useRef<number | null>(null);
+  const pinchZoomStartRef = useRef(1);
+  const zoomRef = useRef(1);
   const [isRunning, setIsRunning] = useState(true);
   const [speed, setSpeed] = useState(5);
   const [tick, setTick] = useState(0);
@@ -159,6 +179,10 @@ export function Simulator({
     () => (shouldDrawReference ? buildReferenceTrails(solution, integrator) : []),
     [integrator, shouldDrawReference, solution],
   );
+
+  useEffect(() => {
+    zoomRef.current = zoom;
+  }, [zoom]);
 
   const reset = useCallback(() => {
     bodiesRef.current = cloneBodies(solution.bodies);
@@ -324,21 +348,65 @@ export function Simulator({
     (event: React.WheelEvent<HTMLCanvasElement>) => {
       event.preventDefault();
       const zoomFactor = event.deltaY > 0 ? 0.88 : 1.14;
-      setZoom((value) => Math.min(5, Math.max(0.08, value * zoomFactor)));
+      setZoom((value) => clampZoom(value * zoomFactor));
     },
     [],
   );
 
   const handlePointerDown = useCallback((event: PointerEvent<HTMLCanvasElement>) => {
     event.preventDefault();
+    activePointersRef.current.set(event.pointerId, {
+      pointerType: event.pointerType,
+      x: event.clientX,
+      y: event.clientY,
+    });
+    event.currentTarget.setPointerCapture(event.pointerId);
+
+    const touchPointers = [...activePointersRef.current.values()].filter(
+      (pointer) => pointer.pointerType === "touch",
+    );
+    if (touchPointers.length >= 2) {
+      pinchDistanceRef.current = pointerDistance(touchPointers[0], touchPointers[1]);
+      pinchZoomStartRef.current = zoomRef.current;
+      lastPointerXRef.current = null;
+      lastPointerYRef.current = null;
+      setIsDraggingView(false);
+      return;
+    }
+
     lastPointerXRef.current = event.clientX;
     lastPointerYRef.current = event.clientY;
     setIsDraggingView(true);
-    event.currentTarget.setPointerCapture(event.pointerId);
   }, []);
 
   const handlePointerMove = useCallback(
     (event: PointerEvent<HTMLCanvasElement>) => {
+      const activePointer = activePointersRef.current.get(event.pointerId);
+      if (activePointer) {
+        activePointersRef.current.set(event.pointerId, {
+          ...activePointer,
+          x: event.clientX,
+          y: event.clientY,
+        });
+      }
+
+      const touchPointers = [...activePointersRef.current.values()].filter(
+        (pointer) => pointer.pointerType === "touch",
+      );
+      if (touchPointers.length >= 2) {
+        event.preventDefault();
+        const currentDistance = pointerDistance(touchPointers[0], touchPointers[1]);
+        if (pinchDistanceRef.current === null) {
+          pinchDistanceRef.current = currentDistance;
+          pinchZoomStartRef.current = zoomRef.current;
+          return;
+        }
+        if (pinchDistanceRef.current > 0) {
+          setZoom(clampZoom((pinchZoomStartRef.current * currentDistance) / pinchDistanceRef.current));
+        }
+        return;
+      }
+
       if (
         !isDraggingView ||
         lastPointerXRef.current === null ||
@@ -359,12 +427,31 @@ export function Simulator({
   );
 
   const endPointerDrag = useCallback((event: PointerEvent<HTMLCanvasElement>) => {
-    lastPointerXRef.current = null;
-    lastPointerYRef.current = null;
-    setIsDraggingView(false);
+    activePointersRef.current.delete(event.pointerId);
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
+
+    const remainingPointers = [...activePointersRef.current.values()];
+    const touchPointers = remainingPointers.filter((pointer) => pointer.pointerType === "touch");
+    if (touchPointers.length >= 2) {
+      pinchDistanceRef.current = pointerDistance(touchPointers[0], touchPointers[1]);
+      pinchZoomStartRef.current = zoomRef.current;
+      return;
+    }
+
+    pinchDistanceRef.current = null;
+    const remainingPointer = remainingPointers[0];
+    if (remainingPointer) {
+      lastPointerXRef.current = remainingPointer.x;
+      lastPointerYRef.current = remainingPointer.y;
+      setIsDraggingView(true);
+      return;
+    }
+
+    lastPointerXRef.current = null;
+    lastPointerYRef.current = null;
+    setIsDraggingView(false);
   }, []);
 
   const resetView = useCallback(() => {
