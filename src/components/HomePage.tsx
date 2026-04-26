@@ -18,9 +18,6 @@ import { OrbitThumbnail } from "./OrbitThumbnail";
 function SolutionCard({ solution }: { solution: ThreeBodySolution }) {
   const { t } = useUiText();
   const { text } = useSolutionText(solution.slug);
-  const classificationLine = `${t.orbitClassLabel}: ${
-    t.orbitClassLabels[solution.orbitClass]
-  } / ${t.stabilityClassLabel}: ${t.stabilityLabels[solution.stability]}`;
 
   return (
     <Link className="solutionCard" href={`/solutions/${solution.slug}`}>
@@ -41,7 +38,6 @@ function SolutionCard({ solution }: { solution: ThreeBodySolution }) {
         </div>
         <h2>{text.name}</h2>
         <p>{text.summary}</p>
-        <p className="stabilityText">{classificationLine}</p>
       </div>
       <div className="cardFooter">
         <span>{text.sourceNote}</span>
@@ -79,10 +75,6 @@ export function HomePage() {
         <h1>{t.heroTitle}</h1>
         <p>{t.heroBody}</p>
         <p className="catalogNote">{t.catalogNote}</p>
-        <div className="classificationGuide">
-          <strong>{t.classificationGuideTitle}</strong>
-          <p>{t.classificationGuideBody}</p>
-        </div>
       </section>
 
       <div className="dimensionTabs" aria-label={t.dimensionTabsLabel} role="tablist">
@@ -114,6 +106,33 @@ export function HomePage() {
             <li key={item}>{item}</li>
           ))}
         </ul>
+        <div className="classificationGuide">
+          <strong>{t.classificationGuideTitle}</strong>
+          <p>{t.classificationGuideBody}</p>
+          <div className="classificationLegend">
+            <div>
+              <span>{t.orbitClassLabel}</span>
+              <div className="classificationBadges">
+                <span className="orbitBadge periodic">{t.orbitClassLabels.periodic}</span>
+                <span className="orbitBadge relative-equilibrium">
+                  {t.orbitClassLabels["relative-equilibrium"]}
+                </span>
+                <span className="orbitBadge transient">{t.orbitClassLabels.transient}</span>
+              </div>
+            </div>
+            <div>
+              <span>{t.stabilityClassLabel}</span>
+              <div className="classificationBadges">
+                <span className="stabilityBadge stable">{t.stabilityLabels.stable}</span>
+                <span className="stabilityBadge unstable">{t.stabilityLabels.unstable}</span>
+                <span className="stabilityBadge unverified">
+                  {t.stabilityLabels.unverified}
+                </span>
+                <span className="stabilityBadge chaotic">{t.stabilityLabels.chaotic}</span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="sourcePanel">
           <h3>{t.sourceTableTitle}</h3>
           <p>{t.sourceTableBody}</p>

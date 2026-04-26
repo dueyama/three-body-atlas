@@ -18,7 +18,7 @@ function equalMassCollinearOrbit(
     slug,
     dimension: "2d",
     orbitClass: "periodic",
-    stability: "unclassified",
+    stability: "unverified",
     recommendedDt,
     viewScale,
     trailLength: Math.max(trailLength, Math.ceil(period / recommendedDt) + 8),

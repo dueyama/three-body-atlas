@@ -175,6 +175,21 @@ input {
   font-size: 0.94rem;
 }
 
+.classificationLegend {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.classificationLegend > div > span {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
 .dimensionTabs {
   display: inline-flex;
   align-items: center;
@@ -468,7 +483,7 @@ input {
   border-color: rgba(240, 93, 94, 0.38);
 }
 
-.stabilityBadge.unclassified {
+.stabilityBadge.unverified {
   color: #cfd5dc;
   background: rgba(207, 213, 220, 0.08);
   border-color: rgba(207, 213, 220, 0.24);
@@ -717,6 +732,10 @@ input {
   }
 
   .detailHeader {
+    grid-template-columns: 1fr;
+  }
+
+  .classificationLegend {
     grid-template-columns: 1fr;
   }
 

@@ -94,7 +94,7 @@ const uiText: Record<Locale, UiText> = {
     solutionGridLabel: "Known three-body solutions",
     classificationGuideTitle: "Classification rule",
     classificationGuideBody:
-      "Orbit type and stability are shown separately. Most entries are periodic solutions; Lagrange is a relative equilibrium, and Pythagorean is a transient scattering example. Stability is only labeled stable or unstable where this app has an explicit source or classical criterion.",
+      "Orbit type and stability are shown separately. Most entries are periodic solutions; Lagrange is a relative equilibrium, and Pythagorean is a transient scattering example. Many periodic orbits are expected to be sensitive or unstable, and Li and Liao [6] explicitly checked the stability of the original 15 planar examples, but this app marks stability only where the current preset has a clear source or classical criterion.",
     classificationLabel: "Orbit classification",
     orbitClassLabel: "Orbit type",
     stabilityClassLabel: "Stability",
@@ -106,7 +106,7 @@ const uiText: Record<Locale, UiText> = {
     stabilityLabels: {
       stable: "Linearly stable",
       unstable: "Unstable",
-      unclassified: "Stability not classified",
+      unverified: "Stability unverified",
       chaotic: "Chaotic / escape",
     },
     dimensionTabsLabel: "Orbit dimension",
@@ -184,6 +184,12 @@ const uiText: Record<Locale, UiText> = {
           "X. Li and S. Liao, \"Discovery of 10,059 new three-dimensional periodic orbits of general three-body problem,\" arXiv:2508.08568, 2025; initial-condition data in sjtu-liao/three-body.",
         url: threeDArxivUrl,
       },
+      {
+        id: "6",
+        citation:
+          "X. Li and S. Liao, \"On the stability of the three classes of Newtonian three-body planar periodic orbits,\" Science China Physics, Mechanics & Astronomy, 57, 2121-2126, 2014. DOI: 10.1007/s11433-014-5563-5.",
+        url: "https://doi.org/10.1007/s11433-014-5563-5",
+      },
     ],
   },
   ja: {
@@ -196,7 +202,7 @@ const uiText: Record<Locale, UiText> = {
     solutionGridLabel: "既知の3体問題解",
     classificationGuideTitle: "分類ルール",
     classificationGuideBody:
-      "このアプリでは「軌道型」と「安定性」を分けて表示します。ほとんどは周期解ですが、Lagrange は形を保って回る相対平衡、Pythagorean は周期解ではない過渡的な散乱例です。安定・不安定は、古典条件または出典上で明示できるものだけに付けます。",
+      "このアプリでは「軌道型」と「安定性」を分けて表示します。ほとんどは周期解ですが、Lagrange は形を保って回る相対平衡、Pythagorean は周期解ではない過渡的な散乱例です。多くの周期解は敏感または不安定と考えるのが自然で、Li と Liao [6] は元の15個の平面例について安定性を調べています。ただし、このアプリでは現在のプリセットについて出典または古典条件から明示できるものだけに安定・不安定を付けます。",
     classificationLabel: "軌道の分類",
     orbitClassLabel: "軌道型",
     stabilityClassLabel: "安定性",
@@ -208,7 +214,7 @@ const uiText: Record<Locale, UiText> = {
     stabilityLabels: {
       stable: "線形安定",
       unstable: "不安定",
-      unclassified: "安定性未分類",
+      unverified: "安定性未確認",
       chaotic: "カオス的脱出",
     },
     dimensionTabsLabel: "軌道の次元",
@@ -285,6 +291,12 @@ const uiText: Record<Locale, UiText> = {
           "X. Li and S. Liao, \"Discovery of 10,059 new three-dimensional periodic orbits of general three-body problem,\" arXiv:2508.08568, 2025。初期条件データは sjtu-liao/three-body。",
         url: threeDArxivUrl,
       },
+      {
+        id: "6",
+        citation:
+          "X. Li and S. Liao, \"On the stability of the three classes of Newtonian three-body planar periodic orbits,\" Science China Physics, Mechanics & Astronomy, 57, 2121-2126, 2014。DOI: 10.1007/s11433-014-5563-5。",
+        url: "https://doi.org/10.1007/s11433-014-5563-5",
+      },
     ],
   },
   zh: {
@@ -297,7 +309,7 @@ const uiText: Record<Locale, UiText> = {
     solutionGridLabel: "已知三体问题解",
     classificationGuideTitle: "分类规则",
     classificationGuideBody:
-      "本应用把轨道类型和稳定性分开显示。大多数条目是周期解；Lagrange 是保持形状旋转的相对平衡，Pythagorean 是非周期的暂态散射例。只有在有明确来源或经典判据时，才标注稳定或不稳定。",
+      "本应用把轨道类型和稳定性分开显示。大多数条目是周期解；Lagrange 是保持形状旋转的相对平衡，Pythagorean 是非周期的暂态散射例。许多周期轨道很可能是敏感或不稳定的，Li 和 Liao [6] 明确检查了最初 15 个平面例子的稳定性；但本应用只在当前预设有明确来源或经典判据时标注稳定或不稳定。",
     classificationLabel: "轨道分类",
     orbitClassLabel: "轨道类型",
     stabilityClassLabel: "稳定性",
@@ -309,7 +321,7 @@ const uiText: Record<Locale, UiText> = {
     stabilityLabels: {
       stable: "线性稳定",
       unstable: "不稳定",
-      unclassified: "稳定性未分类",
+      unverified: "稳定性未确认",
       chaotic: "混沌 / 逃逸",
     },
     dimensionTabsLabel: "轨道维度",
@@ -385,6 +397,12 @@ const uiText: Record<Locale, UiText> = {
         citation:
           "X. Li and S. Liao, \"Discovery of 10,059 new three-dimensional periodic orbits of general three-body problem,\" arXiv:2508.08568, 2025；初始条件数据见 sjtu-liao/three-body。",
         url: threeDArxivUrl,
+      },
+      {
+        id: "6",
+        citation:
+          "X. Li and S. Liao, \"On the stability of the three classes of Newtonian three-body planar periodic orbits,\" Science China Physics, Mechanics & Astronomy, 57, 2121-2126, 2014。DOI: 10.1007/s11433-014-5563-5。",
+        url: "https://doi.org/10.1007/s11433-014-5563-5",
       },
     ],
   },

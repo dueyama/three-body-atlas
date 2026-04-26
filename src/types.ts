@@ -9,7 +9,7 @@ export type BodyState = {
 };
 
 export type OrbitClassKind = "periodic" | "relative-equilibrium" | "transient";
-export type StabilityKind = "stable" | "unstable" | "unclassified" | "chaotic";
+export type StabilityKind = "stable" | "unstable" | "unverified" | "chaotic";
 export type ReferenceKind = "relative-equilibrium" | "periodic-reference" | "transient";
 export type IntegratorKind = "rk4" | "rk45";
 export type SolutionDimension = "2d" | "3d";
