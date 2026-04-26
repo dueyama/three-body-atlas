@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 export type Locale = "en" | "ja" | "zh";
+export type LocalePreference = Locale | "auto";
 
 type SolutionText = {
   family: string;
@@ -14,6 +15,9 @@ type SolutionText = {
   sourceUrl?: string;
   sourceLinkLabel?: string;
 };
+
+const localeStorageKey = "threebody.locale";
+const localeChangeEvent = "threebody-locale-change";
 
 type ReferenceText = {
   id: string;
@@ -30,6 +34,11 @@ type UiText = {
   dimensionTabsLabel: string;
   dimension2d: string;
   dimension3d: string;
+  languageLabel: string;
+  languageAuto: string;
+  languageEnglish: string;
+  languageJapanese: string;
+  languageChinese: string;
   backToList: string;
   controlsLabel: string;
   pause: string;
@@ -78,6 +87,11 @@ const uiText: Record<Locale, UiText> = {
     dimensionTabsLabel: "Orbit dimension",
     dimension2d: "2D",
     dimension3d: "3D",
+    languageLabel: "Language",
+    languageAuto: "Auto",
+    languageEnglish: "English",
+    languageJapanese: "日本語",
+    languageChinese: "中文",
     backToList: "List",
     controlsLabel: "Simulation controls",
     pause: "Pause",
@@ -158,6 +172,11 @@ const uiText: Record<Locale, UiText> = {
     dimensionTabsLabel: "軌道の次元",
     dimension2d: "2D",
     dimension3d: "3D",
+    languageLabel: "言語",
+    languageAuto: "自動",
+    languageEnglish: "English",
+    languageJapanese: "日本語",
+    languageChinese: "中文",
     backToList: "一覧",
     controlsLabel: "シミュレーション操作",
     pause: "停止",
@@ -237,6 +256,11 @@ const uiText: Record<Locale, UiText> = {
     dimensionTabsLabel: "轨道维度",
     dimension2d: "2D",
     dimension3d: "3D",
+    languageLabel: "语言",
+    languageAuto: "自动",
+    languageEnglish: "English",
+    languageJapanese: "日本語",
+    languageChinese: "中文",
     backToList: "列表",
     controlsLabel: "模拟控制",
     pause: "暂停",
@@ -1040,20 +1064,71 @@ function detectLocale(): Locale {
   return "en";
 }
 
-export function useLocale() {
+function isLocalePreference(value: string | null): value is LocalePreference {
+  return value === "auto" || value === "en" || value === "ja" || value === "zh";
+}
+
+function readLocalePreference(): LocalePreference {
+  if (typeof window === "undefined") {
+    return "auto";
+  }
+
+  const stored = window.localStorage.getItem(localeStorageKey);
+  return isLocalePreference(stored) ? stored : "auto";
+}
+
+function resolveLocale(preference: LocalePreference): Locale {
+  return preference === "auto" ? detectLocale() : preference;
+}
+
+export function useLocalePreference() {
+  const [preference, setPreferenceState] = useState<LocalePreference>("auto");
   const [locale, setLocale] = useState<Locale>("en");
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- browser language is only available after hydration.
-    setLocale(detectLocale());
+    const syncLocalePreference = () => {
+      const nextPreference = readLocalePreference();
+      setPreferenceState(nextPreference);
+      setLocale(resolveLocale(nextPreference));
+    };
+
+    syncLocalePreference();
+    window.addEventListener("storage", syncLocalePreference);
+    window.addEventListener("languagechange", syncLocalePreference);
+    window.addEventListener(localeChangeEvent, syncLocalePreference);
+
+    return () => {
+      window.removeEventListener("storage", syncLocalePreference);
+      window.removeEventListener("languagechange", syncLocalePreference);
+      window.removeEventListener(localeChangeEvent, syncLocalePreference);
+    };
   }, []);
 
-  return locale;
+  const setPreference = useCallback((nextPreference: LocalePreference) => {
+    if (nextPreference === "auto") {
+      window.localStorage.removeItem(localeStorageKey);
+    } else {
+      window.localStorage.setItem(localeStorageKey, nextPreference);
+    }
+    window.dispatchEvent(new Event(localeChangeEvent));
+  }, []);
+
+  return useMemo(
+    () => ({ locale, preference, setPreference }),
+    [locale, preference, setPreference],
+  );
+}
+
+export function useLocale() {
+  return useLocalePreference().locale;
 }
 
 export function useUiText() {
-  const locale = useLocale();
-  return useMemo(() => ({ locale, t: uiText[locale] }), [locale]);
+  const { locale, preference, setPreference } = useLocalePreference();
+  return useMemo(
+    () => ({ locale, preference, setPreference, t: uiText[locale] }),
+    [locale, preference, setPreference],
+  );
 }
 
 export function useSolutionText(slug: string) {

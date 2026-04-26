@@ -12,6 +12,7 @@ import {
   useUiText,
 } from "@/lib/i18n";
 import type { SolutionDimension, ThreeBodySolution } from "@/types";
+import { LanguageSelector } from "./LanguageSelector";
 import { OrbitThumbnail } from "./OrbitThumbnail";
 
 function SolutionCard({ solution }: { solution: ThreeBodySolution }) {
@@ -57,9 +58,12 @@ export function HomePage() {
   return (
     <main className="appShell" lang={locale}>
       <section className="intro">
-        <div className="brandLine">
-          <Orbit size={22} />
-          <span>{t.appTitle}</span>
+        <div className="topBar">
+          <div className="brandLine">
+            <Orbit size={22} />
+            <span>{t.appTitle}</span>
+          </div>
+          <LanguageSelector />
         </div>
         <h1>{t.heroTitle}</h1>
         <p>{t.heroBody}</p>
