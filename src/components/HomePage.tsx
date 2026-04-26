@@ -109,6 +109,17 @@ export function HomePage() {
         <div className="classificationGuide">
           <strong>{t.classificationGuideTitle}</strong>
           <p>{t.classificationGuideBody}</p>
+          <div className="familyGuide">
+            <span>{t.familyGuideTitle}</span>
+            <dl>
+              {t.familyGuideItems.map((item) => (
+                <div key={item.label}>
+                  <dt>{item.label}</dt>
+                  <dd>{item.body}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
           <div className="classificationLegend">
             <div>
               <span>{t.orbitClassLabel}</span>

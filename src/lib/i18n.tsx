@@ -26,6 +26,11 @@ type ReferenceText = {
   url: string;
 };
 
+type GuideItemText = {
+  label: string;
+  body: string;
+};
+
 type UiText = {
   appTitle: string;
   heroTitle: string;
@@ -34,6 +39,8 @@ type UiText = {
   solutionGridLabel: string;
   classificationGuideTitle: string;
   classificationGuideBody: string;
+  familyGuideTitle: string;
+  familyGuideItems: GuideItemText[];
   classificationLabel: string;
   orbitClassLabel: string;
   stabilityClassLabel: string;
@@ -95,6 +102,25 @@ const uiText: Record<Locale, UiText> = {
     classificationGuideTitle: "Classification rule",
     classificationGuideBody:
       "Orbit type and stability are shown separately. Most entries are periodic solutions; Lagrange is a relative equilibrium, and Pythagorean is a transient scattering example. Many periodic orbits are expected to be sensitive or unstable, and Li and Liao [6] explicitly checked the stability of the original 15 planar examples, but this app marks stability only where the current preset has a clear source or classical criterion.",
+    familyGuideTitle: "Card family names",
+    familyGuideItems: [
+      {
+        label: "Choreography",
+        body: "Three bodies follow one shared curve with a time shift.",
+      },
+      {
+        label: "Relative equilibrium",
+        body: "The shape stays fixed while the whole configuration rotates.",
+      },
+      {
+        label: "Family",
+        body: "A named group of related periodic orbits, such as butterfly, moth, or figure-eight variants.",
+      },
+      {
+        label: "Scattering / escape",
+        body: "A non-periodic close-encounter example where one or more bodies eventually leave.",
+      },
+    ],
     classificationLabel: "Orbit classification",
     orbitClassLabel: "Orbit type",
     stabilityClassLabel: "Stability",
@@ -203,6 +229,25 @@ const uiText: Record<Locale, UiText> = {
     classificationGuideTitle: "分類ルール",
     classificationGuideBody:
       "このアプリでは「軌道型」と「安定性」を分けて表示します。ほとんどは周期解ですが、Lagrange は形を保って回る相対平衡、Pythagorean は周期解ではない過渡的な散乱例です。多くの周期解は敏感または不安定と考えるのが自然で、Li と Liao [6] は元の15個の平面例について安定性を調べています。ただし、このアプリでは現在のプリセットについて出典または古典条件から明示できるものだけに安定・不安定を付けます。",
+    familyGuideTitle: "カード上部の族名",
+    familyGuideItems: [
+      {
+        label: "コレオグラフィー",
+        body: "3天体が時間差をつけて同じ曲線をたどるタイプです。",
+      },
+      {
+        label: "相対平衡",
+        body: "天体同士の形を保ったまま、配置全体が回転する解です。",
+      },
+      {
+        label: "ファミリー",
+        body: "Butterfly、Moth、8の字変種のような、似た形や対称性を持つ周期解のまとまりです。",
+      },
+      {
+        label: "散乱・脱出",
+        body: "周期解ではなく、近接遭遇のあとに天体が遠方へ離れていく例です。",
+      },
+    ],
     classificationLabel: "軌道の分類",
     orbitClassLabel: "軌道型",
     stabilityClassLabel: "安定性",
@@ -310,6 +355,25 @@ const uiText: Record<Locale, UiText> = {
     classificationGuideTitle: "分类规则",
     classificationGuideBody:
       "本应用把轨道类型和稳定性分开显示。大多数条目是周期解；Lagrange 是保持形状旋转的相对平衡，Pythagorean 是非周期的暂态散射例。许多周期轨道很可能是敏感或不稳定的，Li 和 Liao [6] 明确检查了最初 15 个平面例子的稳定性；但本应用只在当前预设有明确来源或经典判据时标注稳定或不稳定。",
+    familyGuideTitle: "卡片顶部的族名",
+    familyGuideItems: [
+      {
+        label: "编舞轨道",
+        body: "三个天体以时间差沿同一条曲线运动。",
+      },
+      {
+        label: "相对平衡",
+        body: "天体之间的形状保持不变，整个构型一起旋转。",
+      },
+      {
+        label: "轨道族",
+        body: "Butterfly、Moth、8 字形变体等具有相近形状或对称性的周期解分组。",
+      },
+      {
+        label: "散射 / 逃逸",
+        body: "不是周期解，而是近距离遭遇后有天体远离的例子。",
+      },
+    ],
     classificationLabel: "轨道分类",
     orbitClassLabel: "轨道类型",
     stabilityClassLabel: "稳定性",

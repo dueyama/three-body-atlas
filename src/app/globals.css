@@ -175,6 +175,42 @@ input {
   font-size: 0.94rem;
 }
 
+.familyGuide {
+  margin-top: 15px;
+}
+
+.familyGuide > span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.familyGuide dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 16px;
+  margin: 0;
+}
+
+.familyGuide div {
+  min-width: 0;
+}
+
+.familyGuide dt {
+  color: var(--text);
+  font-size: 0.86rem;
+  font-weight: 900;
+}
+
+.familyGuide dd {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
 .classificationLegend {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -736,6 +772,10 @@ input {
   }
 
   .classificationLegend {
+    grid-template-columns: 1fr;
+  }
+
+  .familyGuide dl {
     grid-template-columns: 1fr;
   }
 
