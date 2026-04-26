@@ -1,0 +1,9 @@
+.next/
+node_modules/
+out/
+dist/
+*.log
+.env*
+!.env.example
+memory.md
+AGENTS.md
