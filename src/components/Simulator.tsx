@@ -9,8 +9,9 @@ import type { IntegratorKind, ThreeBodySolution, Vector3 } from "@/types";
 type TrailPoint = Vector3;
 const historyLimit = 18000;
 const autoRotateStep = 0.0022;
-const minPitch = -1.35;
-const maxPitch = 1.35;
+const minPitch = -2.75;
+const maxPitch = 2.75;
+const dragRotationScale = 0.009;
 
 function toTrailPoint(body: SimBody): TrailPoint {
   return [body.position[0], body.position[1], body.position[2]];
@@ -351,8 +352,8 @@ export function Simulator({
       const deltaY = event.clientY - lastPointerYRef.current;
       lastPointerXRef.current = event.clientX;
       lastPointerYRef.current = event.clientY;
-      setViewYaw((value) => value + deltaX * 0.009);
-      setViewPitch((value) => clampPitch(value + deltaY * 0.007));
+      setViewYaw((value) => value + deltaX * dragRotationScale);
+      setViewPitch((value) => clampPitch(value + deltaY * dragRotationScale));
     },
     [isDraggingView],
   );
