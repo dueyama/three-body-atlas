@@ -101,7 +101,7 @@ const uiText: Record<Locale, UiText> = {
     solutionGridLabel: "Known three-body solutions",
     classificationGuideTitle: "Classification rule",
     classificationGuideBody:
-      "Orbit type and stability are shown separately. Most entries are periodic solutions; Lagrange is a relative equilibrium, and Pythagorean is a transient scattering example. Many periodic orbits are expected to be sensitive or unstable, and Li and Liao [6] explicitly checked the stability of the original 15 planar examples, but this app marks stability only where the current preset has a clear source or classical criterion.",
+      "Orbit type and stability are shown separately. Most entries are periodic solutions; Lagrange is a relative equilibrium, and Pythagorean is a transient scattering example. Li and Liao [6] explicitly checked the original 15 planar examples: this app marks the seven Table 1 cases as unstable, the Table 3 matches included here as stable, and leaves less certain derived presets unverified.",
     familyGuideTitle: "Card family names",
     familyGuideItems: [
       {
@@ -169,7 +169,7 @@ const uiText: Record<Locale, UiText> = {
       "A small softening term is applied near collisions to avoid singular forces, so this is a visualization model rather than a proof-grade orbit integrator.",
       "Known solutions are stored as initial positions, velocities, masses, and display metadata. The app integrates forward from those initial conditions.",
       "Public-table presets use six-decimal initial conditions from the published table [2] after RK45 screening in this viewer. High-precision presets use 15-decimal conditions [3] because several six-decimal table values are not accurate enough for long playback.",
-      "The 3D tab starts with a small subset of equal-mass spatial periodic-orbit initial conditions reported by Li and Liao [5].",
+      "The 3D tab collects a curated subset of equal-mass spatial periodic-orbit initial conditions reported by Li and Liao [5].",
       "History, wheel zoom, and Perturb are viewing tools: Perturb applies a one-time small kick; it does not continuously inject noise.",
     ],
     sourceTableTitle: "Published periodic-orbit table",
@@ -228,7 +228,7 @@ const uiText: Record<Locale, UiText> = {
     solutionGridLabel: "既知の3体問題解",
     classificationGuideTitle: "分類ルール",
     classificationGuideBody:
-      "このアプリでは「軌道型」と「安定性」を分けて表示します。ほとんどは周期解ですが、Lagrange は形を保って回る相対平衡、Pythagorean は周期解ではない過渡的な散乱例です。多くの周期解は敏感または不安定と考えるのが自然で、Li と Liao [6] は元の15個の平面例について安定性を調べています。ただし、このアプリでは現在のプリセットについて出典または古典条件から明示できるものだけに安定・不安定を付けます。",
+      "このアプリでは「軌道型」と「安定性」を分けて表示します。ほとんどは周期解ですが、Lagrange は形を保って回る相対平衡、Pythagorean は周期解ではない過渡的な散乱例です。Li と Liao [6] は元の15個の平面例を調べており、このアプリでは Table 1 の7例を不安定、収録済みの Table 3 対応例を安定、対応が曖昧な派生プリセットを未確認として表示します。",
     familyGuideTitle: "カード上部の族名",
     familyGuideItems: [
       {
@@ -295,7 +295,7 @@ const uiText: Record<Locale, UiText> = {
       "近接時の特異的な力を避けるため、小さな softening を入れています。そのため、厳密な軌道証明用ではなく可視化用のモデルです。",
       "既知解は、初期位置・初期速度・質量・表示用メタデータとして保持し、そこから時間発展させています。",
       "公開表プリセットは、公開初期条件表 [2] の6桁値をこのビューアのRK45でスクリーニングしたものです。高精度プリセットは長時間表示で6桁では足りないものがあるため、15桁初期条件 [3] を使っています。",
-      "3Dタブでは、Li と Liao による等質量3D周期軌道の初期条件 [5] から、まず少数を収録しています。",
+      "3Dタブでは、Li と Liao による等質量3D周期軌道の初期条件 [5] から、見やすいものを選んで収録しています。",
       "History、ホイールズーム、Perturb は観察用の補助機能です。Perturb は一度だけ小さなキックを入れ、継続的なノイズは加えません。",
     ],
     sourceTableTitle: "公開初期条件表について",
@@ -354,7 +354,7 @@ const uiText: Record<Locale, UiText> = {
     solutionGridLabel: "已知三体问题解",
     classificationGuideTitle: "分类规则",
     classificationGuideBody:
-      "本应用把轨道类型和稳定性分开显示。大多数条目是周期解；Lagrange 是保持形状旋转的相对平衡，Pythagorean 是非周期的暂态散射例。许多周期轨道很可能是敏感或不稳定的，Li 和 Liao [6] 明确检查了最初 15 个平面例子的稳定性；但本应用只在当前预设有明确来源或经典判据时标注稳定或不稳定。",
+      "本应用把轨道类型和稳定性分开显示。大多数条目是周期解；Lagrange 是保持形状旋转的相对平衡，Pythagorean 是非周期的暂态散射例。Li 和 Liao [6] 检查了最初 15 个平面例子：本应用把 Table 1 的七个例子标为不稳定，把已收录且对应 Table 3 的例子标为稳定，其余对应不够确定的派生预设仍标为未确认。",
     familyGuideTitle: "卡片顶部的族名",
     familyGuideItems: [
       {
@@ -421,7 +421,7 @@ const uiText: Record<Locale, UiText> = {
       "为避免近距离遭遇时的奇异力，计算中加入了很小的 softening。因此它是可视化模型，不是用于严格证明轨道的积分器。",
       "已知解以初始位置、初始速度、质量和显示元数据保存，应用从这些初始条件向前积分。",
       "公开表预设使用公开初始条件表 [2] 的六位小数数值，并在本查看器中用 RK45 筛选。高精度预设使用 15 位小数初始条件 [3]，因为若干六位小数数值不适合长时间播放。",
-      "3D 标签页先收录少量 Li 和 Liao 报告的等质量三维周期轨道初始条件 [5]。",
+      "3D 标签页从 Li 和 Liao 报告的等质量三维周期轨道初始条件 [5] 中选取较适合观看的一部分。",
       "History、鼠标滚轮缩放和 Perturb 都是观察辅助工具。Perturb 只施加一次小扰动，不会持续注入噪声。",
     ],
     sourceTableTitle: "公开初始条件表",
@@ -493,8 +493,8 @@ const screenedPublicPresetCopy: Record<
   en: {
     "butterfly-i-2b": {
       family: "Periodic choreography",
-      name: "Butterfly I 2B",
-      summary: "A compact alternate Butterfly I loop with a tight central crossing.",
+      name: "Butterfly II",
+      summary: "A compact butterfly-family loop with a tight central crossing.",
     },
     "butterfly-i-5a": {
       family: "Periodic choreography",
@@ -540,8 +540,8 @@ const screenedPublicPresetCopy: Record<
   ja: {
     "butterfly-i-2b": {
       family: "周期コレオグラフィー",
-      name: "Butterfly I 2B",
-      summary: "中心で締まった交差を作る、Butterfly I 系の小さなループです。",
+      name: "Butterfly II",
+      summary: "中心で締まった交差を作る、Butterfly 系の小さなループです。",
     },
     "butterfly-i-5a": {
       family: "周期コレオグラフィー",
@@ -587,8 +587,8 @@ const screenedPublicPresetCopy: Record<
   zh: {
     "butterfly-i-2b": {
       family: "周期编舞轨道",
-      name: "Butterfly I 2B",
-      summary: "Butterfly I 族的紧凑小回路，中心交叉较集中。",
+      name: "Butterfly II",
+      summary: "Butterfly 族的紧凑小回路，中心交叉较集中。",
     },
     "butterfly-i-5a": {
       family: "周期编舞轨道",
@@ -713,9 +713,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     "butterfly-i": {
       family: "Periodic choreography",
       name: "Butterfly I",
-      stabilityLabel: "Periodic / high precision",
+      stabilityLabel: "Unstable / high precision",
       stabilitySummary:
-        "Status: 15-decimal high-precision preset. It remains sensitive to perturbation and numerical settings, but closes well with the RK45 default.",
+        "Status: Li and Liao [6] list this among seven original planar cases that depart from the reported periodic orbit in long high-precision CNS runs.",
       summary: "Orbit: three equal masses weave a compact butterfly-like loop from a symmetric collinear start.",
       sourceNote:
         "Source: [3] 15-decimal Butterfly I condition; p1 = 0.306892758965492, p2 = 0.125506782829762, T = 6.23564136316479.",
@@ -723,12 +723,25 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
       sourceLinkLabel: "Open the high-precision condition note",
     },
     ...makeScreenedPublicPresetText("en"),
+    "butterfly-i-2b": {
+      family: "Periodic choreography",
+      name: "Butterfly II",
+      stabilityLabel: "Stable / public table",
+      stabilitySummary:
+        "Status: the matching 15-decimal Butterfly II case appears in Li and Liao's stable Table 3 [6]. This viewer uses the six-decimal public-table preset for visualization.",
+      summary:
+        "Orbit: a compact butterfly-family loop with a tight central crossing.",
+      sourceNote:
+        "Source: [2] public initial-condition table I.A.2.B; stability cross-check: [6] Table 3 Butterfly II.",
+      sourceUrl: initialConditionsUrl,
+      sourceLinkLabel: "Open the initial-conditions PDF",
+    },
     goggles: {
       family: "Periodic choreography",
       name: "Goggles",
-      stabilityLabel: "Periodic / high precision",
+      stabilityLabel: "Unstable / high precision",
       stabilitySummary:
-        "Status: 15-decimal high-precision preset. It is intended for RK45 playback as a visualization, not as a proof-grade integrator result.",
+        "Status: Li and Liao [6] list this among seven original planar cases that eventually depart from the periodic orbit.",
       summary: "Orbit: three bodies draw a tight looped pattern resembling paired lenses.",
       sourceNote:
         "Source: [3] 15-decimal Goggles condition; p1 = 0.0833000564575194, p2 = 0.127889282226563, T = 10.4668176954385.",
@@ -738,9 +751,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     "yin-yang-i-a": {
       family: "Periodic choreography",
       name: "Yin-yang I alpha",
-      stabilityLabel: "Periodic / high precision",
+      stabilityLabel: "Unstable / high precision",
       stabilitySummary:
-        "Status: 15-decimal high-precision preset. It is one crossing of the Yin-yang I family and is best viewed with RK45.",
+        "Status: Li and Liao [6] list this Yin-yang I branch among the seven most possibly unstable original planar cases.",
       summary: "Orbit: a balanced two-lobed periodic pattern with a yin-yang-like structure.",
       sourceNote:
         "Source: [3] 15-decimal Yin-yang I alpha condition; p1 = 0.513938054919243, p2 = 0.304736003875733, T = 17.328369755004.",
@@ -750,9 +763,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     "yin-yang-i-b": {
       family: "Periodic choreography",
       name: "Yin-yang I beta",
-      stabilityLabel: "Periodic / high precision",
+      stabilityLabel: "Unstable / high precision",
       stabilitySummary:
-        "Status: 15-decimal high-precision preset. It is the second crossing of the Yin-yang I family and is best viewed with RK45.",
+        "Status: Li and Liao [6] list this Yin-yang I branch among the seven most possibly unstable original planar cases.",
       summary: "Orbit: a smaller two-lobed yin-yang-like periodic pattern.",
       sourceNote:
         "Source: [3] 15-decimal Yin-yang I beta condition; p1 = 0.282698682308198, p2 = 0.327208786129952, T = 10.9625630756217.",
@@ -762,9 +775,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     "moth-i": {
       family: "Periodic choreography",
       name: "Moth I",
-      stabilityLabel: "Periodic / public table",
+      stabilityLabel: "Stable / public table",
       stabilitySummary:
-        "Status: public-table six-decimal preset. It behaves well in this viewer, but it is still a visualization preset.",
+        "Status: the matching 15-decimal Moth I case appears in Li and Liao's stable Table 3 [6]. This viewer uses the six-decimal public-table preset for visualization.",
       summary: "Orbit: a wing-like equal-mass periodic orbit with broad moth-shaped loops.",
       sourceNote: "Source: [2] public initial-condition table IVa.2.A.",
       sourceUrl: initialConditionsUrl,
@@ -773,9 +786,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     "moth-iii": {
       family: "Periodic choreography",
       name: "Moth III",
-      stabilityLabel: "Periodic / high precision",
+      stabilityLabel: "Unstable / high precision",
       stabilitySummary:
-        "Status: 15-decimal high-precision preset. The long period makes it numerically sensitive, so RK45 is the preferred playback mode.",
+        "Status: Li and Liao [6] list this among seven original planar cases that become non-periodic after a long enough interval.",
       summary: "Orbit: a wide moth-like periodic orbit with a longer period.",
       sourceNote:
         "Source: [3] 15-decimal Moth III condition; p1 = 0.383443534851074, p2 = 0.377363693237305, T = 25.8406180475758.",
@@ -785,9 +798,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     dragonfly: {
       family: "Periodic choreography",
       name: "Dragonfly",
-      stabilityLabel: "Periodic / high precision",
+      stabilityLabel: "Unstable / high precision",
       stabilitySummary:
-        "Status: 15-decimal high-precision preset. It closes best in this viewer with the RK45 default.",
+        "Status: Li and Liao [6] list this among seven original planar cases that drift away in long high-precision CNS runs.",
       summary: "Orbit: a periodic orbit with long crossing strokes and a dragonfly-like outline.",
       sourceNote:
         "Source: [3] 15-decimal Dragonfly condition; p1 = 0.080584285736084, p2 = 0.588836087036132, T = 21.2709751966648.",
@@ -797,9 +810,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     yarn: {
       family: "Periodic choreography",
       name: "Yarn",
-      stabilityLabel: "Periodic / high precision",
+      stabilityLabel: "Unstable / high precision",
       stabilitySummary:
-        "Status: 15-decimal high-precision preset. It is a long-period orbit and should be viewed with the RK45 default.",
+        "Status: Li and Liao [6] list this among seven original planar cases that become non-periodic after a long enough interval.",
       summary: "Orbit: a long looping path that builds into a dense yarn-like pattern.",
       sourceNote:
         "Source: [3] 15-decimal Yarn condition; p1 = 0.559064247131347, p2 = 0.349191558837891, T = 55.5017624421301.",
@@ -855,6 +868,45 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
       sourceUrl: threeDInitialConditionsUrl,
       sourceLinkLabel: "Open the 3D initial-condition set",
     },
+    "spatial-o9-equal-mass": {
+      family: "3D equal-mass periodic orbit",
+      name: "Spatial O9",
+      stabilityLabel: "3D periodic / stable",
+      stabilitySummary:
+        "Status: linearly stable in Li and Liao's 3D initial-condition table. It adds a higher-energy spatial weave to the 3D set.",
+      summary:
+        "Orbit: a stable equal-mass spatial loop with a tall out-of-plane sweep and moderate period.",
+      sourceNote:
+        "Source: [5] Li-Liao 3D table O_9(1.0); z0 = 0.192548096928661, T = 19.6566389794529.",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "Open the 3D initial-condition set",
+    },
+    "spatial-o20-equal-mass": {
+      family: "3D equal-mass periodic orbit",
+      name: "Spatial O20",
+      stabilityLabel: "3D periodic / stable",
+      stabilitySummary:
+        "Status: linearly stable in Li and Liao's 3D initial-condition table. It is longer than O9 but still practical for playback.",
+      summary:
+        "Orbit: a stable 3D equal-mass loop that builds a layered ribbon-like trace over one period.",
+      sourceNote:
+        "Source: [5] Li-Liao 3D table O_20(1.0); z0 = 0.144949067603394, T = 25.4311471535674.",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "Open the 3D initial-condition set",
+    },
+    "spatial-o27-equal-mass": {
+      family: "3D equal-mass periodic orbit",
+      name: "Spatial O27",
+      stabilityLabel: "3D periodic / stable",
+      stabilitySummary:
+        "Status: linearly stable in Li and Liao's 3D initial-condition table. Its longer cycle makes the 3D tab feel less repetitive.",
+      summary:
+        "Orbit: a stable, longer-period spatial choreography with a compact central braid.",
+      sourceNote:
+        "Source: [5] Li-Liao 3D table O_27(1.0); z0 = 0.117108530067078, T = 31.7238726897393.",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "Open the 3D initial-condition set",
+    },
   },
   ja: {
     "figure-eight": {
@@ -878,9 +930,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     "butterfly-i": {
       family: "周期コレオグラフィー",
       name: "Butterfly I",
-      stabilityLabel: "周期解 / 高精度",
+      stabilityLabel: "不安定 / 高精度",
       stabilitySummary:
-        "状態: 15桁初期条件の高精度プリセットです。摂動や数値設定には敏感ですが、RK45デフォルトではよく閉じます。",
+        "状態: Li と Liao [6] では、長時間の高精度CNSで報告周期軌道から離れる7例のひとつとして扱われています。",
       summary: "軌道: 3つの等質量天体が、対称な直線配置から蝶のような小さなループを描きます。",
       sourceNote:
         "出典: [3] 15桁 Butterfly I 条件; p1 = 0.306892758965492, p2 = 0.125506782829762, T = 6.23564136316479。",
@@ -888,12 +940,24 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
       sourceLinkLabel: "高精度初期条件の資料を開く",
     },
     ...makeScreenedPublicPresetText("ja"),
+    "butterfly-i-2b": {
+      family: "周期コレオグラフィー",
+      name: "Butterfly II",
+      stabilityLabel: "安定 / 公開表",
+      stabilitySummary:
+        "状態: 対応する15桁 Butterfly II は Li と Liao の安定 Table 3 [6] に載っています。このビューアでは6桁の公開表プリセットを可視化に使います。",
+      summary: "軌道: 中心で締まった交差を作る、Butterfly 系の小さなループです。",
+      sourceNote:
+        "出典: [2] 公開初期条件表 I.A.2.B。安定性の対応確認: [6] Table 3 Butterfly II。",
+      sourceUrl: initialConditionsUrl,
+      sourceLinkLabel: "初期条件表PDFを開く",
+    },
     goggles: {
       family: "周期コレオグラフィー",
       name: "Goggles",
-      stabilityLabel: "周期解 / 高精度",
+      stabilityLabel: "不安定 / 高精度",
       stabilitySummary:
-        "状態: 15桁初期条件の高精度プリセットです。厳密証明用ではなく、RK45表示向けの可視化用データです。",
+        "状態: Li と Liao [6] では、十分長い時間で周期軌道から離れる7例のひとつとして扱われています。",
       summary: "軌道: 3天体が、左右のレンズのような締まったループを描きます。",
       sourceNote:
         "出典: [3] 15桁 Goggles 条件; p1 = 0.0833000564575194, p2 = 0.127889282226563, T = 10.4668176954385。",
@@ -903,9 +967,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     "yin-yang-i-a": {
       family: "周期コレオグラフィー",
       name: "Yin-yang I alpha",
-      stabilityLabel: "周期解 / 高精度",
+      stabilityLabel: "不安定 / 高精度",
       stabilitySummary:
-        "状態: 15桁初期条件の高精度プリセットです。Yin-yang I ファミリーの一つの通過点から始まります。",
+        "状態: Li と Liao [6] では、Yin-yang I の不安定7例のひとつとして扱われています。",
       summary: "軌道: 陰陽図のような、2つの大きな葉を持つ周期軌道です。",
       sourceNote:
         "出典: [3] 15桁 Yin-yang I alpha 条件; p1 = 0.513938054919243, p2 = 0.304736003875733, T = 17.328369755004。",
@@ -915,9 +979,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     "yin-yang-i-b": {
       family: "周期コレオグラフィー",
       name: "Yin-yang I beta",
-      stabilityLabel: "周期解 / 高精度",
+      stabilityLabel: "不安定 / 高精度",
       stabilitySummary:
-        "状態: 15桁初期条件の高精度プリセットです。Yin-yang I ファミリーの別の通過点から始まります。",
+        "状態: Li と Liao [6] では、Yin-yang I の不安定7例のひとつとして扱われています。",
       summary: "軌道: より小さくまとまった、2葉の陰陽図的な周期軌道です。",
       sourceNote:
         "出典: [3] 15桁 Yin-yang I beta 条件; p1 = 0.282698682308198, p2 = 0.327208786129952, T = 10.9625630756217。",
@@ -927,9 +991,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     "moth-i": {
       family: "周期コレオグラフィー",
       name: "Moth I",
-      stabilityLabel: "周期解 / 公開表",
+      stabilityLabel: "安定 / 公開表",
       stabilitySummary:
-        "状態: 公開表の6桁初期条件を使う可視化用プリセットです。このビューアでは比較的よく保たれます。",
+        "状態: 対応する15桁 Moth I は Li と Liao の安定 Table 3 [6] に載っています。このビューアでは6桁の公開表プリセットを可視化に使います。",
       summary: "軌道: 大きな羽のようなループを持つ、等質量の周期軌道です。",
       sourceNote: "出典: [2] 公開初期条件表 IVa.2.A。",
       sourceUrl: initialConditionsUrl,
@@ -938,9 +1002,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     "moth-iii": {
       family: "周期コレオグラフィー",
       name: "Moth III",
-      stabilityLabel: "周期解 / 高精度",
+      stabilityLabel: "不安定 / 高精度",
       stabilitySummary:
-        "状態: 15桁初期条件の高精度プリセットです。長周期で数値的に敏感なため、RK45での表示を前提にしています。",
+        "状態: Li と Liao [6] では、十分長い時間で非周期的になる7例のひとつとして扱われています。",
       summary: "軌道: 長周期で大きく広がる、蛾のような周期軌道です。",
       sourceNote:
         "出典: [3] 15桁 Moth III 条件; p1 = 0.383443534851074, p2 = 0.377363693237305, T = 25.8406180475758。",
@@ -950,9 +1014,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     dragonfly: {
       family: "周期コレオグラフィー",
       name: "Dragonfly",
-      stabilityLabel: "周期解 / 高精度",
+      stabilityLabel: "不安定 / 高精度",
       stabilitySummary:
-        "状態: 15桁初期条件の高精度プリセットです。RK45デフォルトでの表示に向いています。",
+        "状態: Li と Liao [6] では、長時間の高精度CNSで周期軌道から離れる7例のひとつとして扱われています。",
       summary: "軌道: 長い交差ストロークを持つ、トンボのような輪郭の周期軌道です。",
       sourceNote:
         "出典: [3] 15桁 Dragonfly 条件; p1 = 0.080584285736084, p2 = 0.588836087036132, T = 21.2709751966648。",
@@ -962,9 +1026,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     yarn: {
       family: "周期コレオグラフィー",
       name: "Yarn",
-      stabilityLabel: "周期解 / 高精度",
+      stabilityLabel: "不安定 / 高精度",
       stabilitySummary:
-        "状態: 15桁初期条件の高精度プリセットです。長周期なので、RK45デフォルトでの表示を前提にしています。",
+        "状態: Li と Liao [6] では、十分長い時間で非周期的になる7例のひとつとして扱われています。",
       summary: "軌道: 長いループが少しずつ重なり、糸玉のような模様を作ります。",
       sourceNote:
         "出典: [3] 15桁 Yarn 条件; p1 = 0.559064247131347, p2 = 0.349191558837891, T = 55.5017624421301。",
@@ -1016,6 +1080,42 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
       sourceUrl: threeDInitialConditionsUrl,
       sourceLinkLabel: "3D初期条件セットを開く",
     },
+    "spatial-o9-equal-mass": {
+      family: "3D等質量周期軌道",
+      name: "Spatial O9",
+      stabilityLabel: "3D周期解 / 安定",
+      stabilitySummary:
+        "状態: Li と Liao の3D初期条件表では線形安定です。3Dタブに、より高く面外へ振れる軌道を追加します。",
+      summary: "軌道: 面外への振れが大きく、中程度の周期を持つ安定な等質量3Dループです。",
+      sourceNote:
+        "出典: [5] Li-Liao 3D表 O_9(1.0); z0 = 0.192548096928661, T = 19.6566389794529。",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "3D初期条件セットを開く",
+    },
+    "spatial-o20-equal-mass": {
+      family: "3D等質量周期軌道",
+      name: "Spatial O20",
+      stabilityLabel: "3D周期解 / 安定",
+      stabilitySummary:
+        "状態: Li と Liao の3D初期条件表では線形安定です。O9より長いですが、再生しやすい範囲の3D例です。",
+      summary: "軌道: 一周期でリボン状の層を作る、安定な等質量3Dループです。",
+      sourceNote:
+        "出典: [5] Li-Liao 3D表 O_20(1.0); z0 = 0.144949067603394, T = 25.4311471535674。",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "3D初期条件セットを開く",
+    },
+    "spatial-o27-equal-mass": {
+      family: "3D等質量周期軌道",
+      name: "Spatial O27",
+      stabilityLabel: "3D周期解 / 安定",
+      stabilitySummary:
+        "状態: Li と Liao の3D初期条件表では線形安定です。やや長い周期で、3Dタブの見え方に変化を出します。",
+      summary: "軌道: 中心でコンパクトに編み込む、やや長周期の安定な空間コレオグラフィーです。",
+      sourceNote:
+        "出典: [5] Li-Liao 3D表 O_27(1.0); z0 = 0.117108530067078, T = 31.7238726897393。",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "3D初期条件セットを開く",
+    },
   },
   zh: {
     "figure-eight": {
@@ -1039,9 +1139,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     "butterfly-i": {
       family: "周期编舞轨道",
       name: "Butterfly I",
-      stabilityLabel: "周期解 / 高精度",
+      stabilityLabel: "不稳定 / 高精度",
       stabilitySummary:
-        "状态: 使用 15 位小数初始条件的高精度预设。它对扰动和数值设置敏感，但在默认 RK45 下闭合较好。",
+        "状态: Li 和 Liao [6] 将它列入七个在长时间高精度 CNS 运行中偏离报告周期轨道的原始平面例子。",
       summary: "轨道: 三个等质量天体从对称共线初态出发，织出紧凑的蝴蝶状回路。",
       sourceNote:
         "来源: [3] 15 位小数 Butterfly I 条件; p1 = 0.306892758965492, p2 = 0.125506782829762, T = 6.23564136316479。",
@@ -1049,12 +1149,24 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
       sourceLinkLabel: "打开高精度初始条件资料",
     },
     ...makeScreenedPublicPresetText("zh"),
+    "butterfly-i-2b": {
+      family: "周期编舞轨道",
+      name: "Butterfly II",
+      stabilityLabel: "稳定 / 公开表",
+      stabilitySummary:
+        "状态: 对应的 15 位 Butterfly II 出现在 Li 和 Liao 的稳定 Table 3 [6] 中。本查看器使用六位小数公开表预设进行可视化。",
+      summary: "轨道: Butterfly 族的紧凑小回路，中心交叉较集中。",
+      sourceNote:
+        "来源: [2] 公开初始条件表 I.A.2.B；稳定性对应: [6] Table 3 Butterfly II。",
+      sourceUrl: initialConditionsUrl,
+      sourceLinkLabel: "打开初始条件 PDF",
+    },
     goggles: {
       family: "周期编舞轨道",
       name: "Goggles",
-      stabilityLabel: "周期解 / 高精度",
+      stabilityLabel: "不稳定 / 高精度",
       stabilitySummary:
-        "状态: 使用 15 位小数初始条件的高精度预设。它是面向 RK45 播放的可视化数据，不是严格证明用积分结果。",
+        "状态: Li 和 Liao [6] 将它列入七个最终偏离周期轨道的原始平面例子。",
       summary: "轨道: 三个天体画出类似一副镜片的紧凑环形图案。",
       sourceNote:
         "来源: [3] 15 位小数 Goggles 条件; p1 = 0.0833000564575194, p2 = 0.127889282226563, T = 10.4668176954385。",
@@ -1064,9 +1176,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     "yin-yang-i-a": {
       family: "周期编舞轨道",
       name: "Yin-yang I alpha",
-      stabilityLabel: "周期解 / 高精度",
+      stabilityLabel: "不稳定 / 高精度",
       stabilitySummary:
-        "状态: 使用 15 位小数初始条件的高精度预设。它从 Yin-yang I 族的一个穿越点开始。",
+        "状态: Li 和 Liao [6] 将这个 Yin-yang I 分支列入七个很可能不稳定的原始平面例子。",
       summary: "轨道: 具有阴阳图式双叶结构的周期轨道。",
       sourceNote:
         "来源: [3] 15 位小数 Yin-yang I alpha 条件; p1 = 0.513938054919243, p2 = 0.304736003875733, T = 17.328369755004。",
@@ -1076,9 +1188,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     "yin-yang-i-b": {
       family: "周期编舞轨道",
       name: "Yin-yang I beta",
-      stabilityLabel: "周期解 / 高精度",
+      stabilityLabel: "不稳定 / 高精度",
       stabilitySummary:
-        "状态: 使用 15 位小数初始条件的高精度预设。它从 Yin-yang I 族的另一个穿越点开始。",
+        "状态: Li 和 Liao [6] 将这个 Yin-yang I 分支列入七个很可能不稳定的原始平面例子。",
       summary: "轨道: 较紧凑的双叶阴阳图式周期轨道。",
       sourceNote:
         "来源: [3] 15 位小数 Yin-yang I beta 条件; p1 = 0.282698682308198, p2 = 0.327208786129952, T = 10.9625630756217。",
@@ -1088,9 +1200,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     "moth-i": {
       family: "周期编舞轨道",
       name: "Moth I",
-      stabilityLabel: "周期解 / 公开表",
+      stabilityLabel: "稳定 / 公开表",
       stabilitySummary:
-        "状态: 使用公开表六位小数初始条件的可视化预设。在本查看器中表现较稳定。",
+        "状态: 对应的 15 位 Moth I 出现在 Li 和 Liao 的稳定 Table 3 [6] 中。本查看器使用六位小数公开表预设进行可视化。",
       summary: "轨道: 具有宽大翼状回路的等质量周期轨道。",
       sourceNote: "来源: [2] 公开初始条件表 IVa.2.A。",
       sourceUrl: initialConditionsUrl,
@@ -1099,9 +1211,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     "moth-iii": {
       family: "周期编舞轨道",
       name: "Moth III",
-      stabilityLabel: "周期解 / 高精度",
+      stabilityLabel: "不稳定 / 高精度",
       stabilitySummary:
-        "状态: 使用 15 位小数初始条件的高精度预设。由于周期较长且数值敏感，建议使用默认 RK45。",
+        "状态: Li 和 Liao [6] 将它列入七个在足够长时间后变为非周期的原始平面例子。",
       summary: "轨道: 周期较长、展开较大的蛾形周期轨道。",
       sourceNote:
         "来源: [3] 15 位小数 Moth III 条件; p1 = 0.383443534851074, p2 = 0.377363693237305, T = 25.8406180475758。",
@@ -1111,9 +1223,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     dragonfly: {
       family: "周期编舞轨道",
       name: "Dragonfly",
-      stabilityLabel: "周期解 / 高精度",
+      stabilityLabel: "不稳定 / 高精度",
       stabilitySummary:
-        "状态: 使用 15 位小数初始条件的高精度预设。适合用默认 RK45 播放。",
+        "状态: Li 和 Liao [6] 将它列入七个在长时间高精度 CNS 运行中偏离周期轨道的原始平面例子。",
       summary: "轨道: 带有长交叉笔画、轮廓类似蜻蜓的周期轨道。",
       sourceNote:
         "来源: [3] 15 位小数 Dragonfly 条件; p1 = 0.080584285736084, p2 = 0.588836087036132, T = 21.2709751966648。",
@@ -1123,9 +1235,9 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
     yarn: {
       family: "周期编舞轨道",
       name: "Yarn",
-      stabilityLabel: "周期解 / 高精度",
+      stabilityLabel: "不稳定 / 高精度",
       stabilitySummary:
-        "状态: 使用 15 位小数初始条件的高精度预设。周期很长，适合用默认 RK45 播放。",
+        "状态: Li 和 Liao [6] 将它列入七个在足够长时间后变为非周期的原始平面例子。",
       summary: "轨道: 长回路逐渐叠加，形成类似线团的图案。",
       sourceNote:
         "来源: [3] 15 位小数 Yarn 条件; p1 = 0.559064247131347, p2 = 0.349191558837891, T = 55.5017624421301。",
@@ -1174,6 +1286,42 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
       summary: "轨道: 面外摆动更强的较长等质量空间轨道。",
       sourceNote:
         "来源: [5] Li-Liao 3D 表 O_7(1.0); z0 = -0.310609261713568, T = 13.9816179875663。",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "打开 3D 初始条件集",
+    },
+    "spatial-o9-equal-mass": {
+      family: "3D 等质量周期轨道",
+      name: "Spatial O9",
+      stabilityLabel: "3D 周期解 / 稳定",
+      stabilitySummary:
+        "状态: 在 Li 和 Liao 的 3D 初始条件表中线性稳定。它为 3D 标签页加入更高的面外摆动。",
+      summary: "轨道: 稳定的等质量空间回路，具有较高的面外扫动和中等周期。",
+      sourceNote:
+        "来源: [5] Li-Liao 3D 表 O_9(1.0); z0 = 0.192548096928661, T = 19.6566389794529。",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "打开 3D 初始条件集",
+    },
+    "spatial-o20-equal-mass": {
+      family: "3D 等质量周期轨道",
+      name: "Spatial O20",
+      stabilityLabel: "3D 周期解 / 稳定",
+      stabilitySummary:
+        "状态: 在 Li 和 Liao 的 3D 初始条件表中线性稳定。它比 O9 更长，但仍适合交互播放。",
+      summary: "轨道: 稳定的 3D 等质量回路，一个周期内形成层叠的带状轨迹。",
+      sourceNote:
+        "来源: [5] Li-Liao 3D 表 O_20(1.0); z0 = 0.144949067603394, T = 25.4311471535674。",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "打开 3D 初始条件集",
+    },
+    "spatial-o27-equal-mass": {
+      family: "3D 等质量周期轨道",
+      name: "Spatial O27",
+      stabilityLabel: "3D 周期解 / 稳定",
+      stabilitySummary:
+        "状态: 在 Li 和 Liao 的 3D 初始条件表中线性稳定。较长周期让 3D 标签页的图案更有变化。",
+      summary: "轨道: 稳定、较长周期的空间编舞轨道，中心形成紧凑编织。",
+      sourceNote:
+        "来源: [5] Li-Liao 3D 表 O_27(1.0); z0 = 0.117108530067078, T = 31.7238726897393。",
       sourceUrl: threeDInitialConditionsUrl,
       sourceLinkLabel: "打开 3D 初始条件集",
     },
