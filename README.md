@@ -1,8 +1,8 @@
 # ThreeBody Atlas
 
-三体問題の既知軌道を、ブラウザ上で数値積分して眺めるための軌道カタログです。
+ThreeBody Atlas is an interactive orbit catalog for exploring known three-body problem examples through browser-based numerical simulation.
 
-劉慈欣『三体』が三つの太陽を持つ世界を物語にしたのに対し、このアプリはその手前にある古典力学の方程式と初期条件を、実際に動く可視化として扱います。
+Cixin Liu's *The Three-Body Problem* turns a world with three suns into fiction. This app stays closer to the mechanics behind that imagination: classical equations, published initial conditions, and live visualizations you can perturb, rotate, and compare.
 
 ## Features
 
@@ -69,4 +69,4 @@ Recommended public release flow:
 - A. Hudomal, "New Periodic Three-Body Orbits," public initial-condition table for equal-mass planar periodic three-body orbits.
 - S. J. Liao, "A comment on Three Classes of Newtonian Three-Body Planar Periodic Orbits," high-precision initial-condition note.
 - X. Li and S. Liao, "Discovery of 10,059 new three-dimensional periodic orbits of general three-body problem," arXiv:2508.08568, 2025.
-- 劉慈欣『三体』。英訳: Cixin Liu, The Three-Body Problem, translated by Ken Liu, Tor Books, 2014.
+- Cixin Liu, *The Three-Body Problem*, translated by Ken Liu, Tor Books, 2014; originally published in Chinese as *San ti*, 2006.
