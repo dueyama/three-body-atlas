@@ -169,7 +169,7 @@ const uiText: Record<Locale, UiText> = {
       "A small softening term is applied near collisions to avoid singular forces, so this is a visualization model rather than a proof-grade orbit integrator.",
       "Known solutions are stored as initial positions, velocities, masses, and display metadata. The app integrates forward from those initial conditions.",
       "Public-table presets use six-decimal initial conditions from the published table [2] after RK45 screening in this viewer. High-precision presets use 15-decimal conditions [3] because several six-decimal table values are not accurate enough for long playback.",
-      "The 3D tab collects a curated subset of equal-mass spatial periodic-orbit initial conditions reported by Li and Liao [5].",
+      "The 3D tab collects a curated subset of equal-mass spatial periodic-orbit initial conditions reported by Li and Liao [5], including both linearly stable and linearly unstable examples.",
       "History, wheel zoom, and Perturb are viewing tools: Perturb applies a one-time small kick; it does not continuously inject noise.",
     ],
     sourceTableTitle: "Published periodic-orbit table",
@@ -295,7 +295,7 @@ const uiText: Record<Locale, UiText> = {
       "近接時の特異的な力を避けるため、小さな softening を入れています。そのため、厳密な軌道証明用ではなく可視化用のモデルです。",
       "既知解は、初期位置・初期速度・質量・表示用メタデータとして保持し、そこから時間発展させています。",
       "公開表プリセットは、公開初期条件表 [2] の6桁値をこのビューアのRK45でスクリーニングしたものです。高精度プリセットは長時間表示で6桁では足りないものがあるため、15桁初期条件 [3] を使っています。",
-      "3Dタブでは、Li と Liao による等質量3D周期軌道の初期条件 [5] から、見やすいものを選んで収録しています。",
+      "3Dタブでは、Li と Liao による等質量3D周期軌道の初期条件 [5] から、線形安定例と線形不安定例の両方を選んで収録しています。",
       "History、ホイールズーム、Perturb は観察用の補助機能です。Perturb は一度だけ小さなキックを入れ、継続的なノイズは加えません。",
     ],
     sourceTableTitle: "公開初期条件表について",
@@ -421,7 +421,7 @@ const uiText: Record<Locale, UiText> = {
       "为避免近距离遭遇时的奇异力，计算中加入了很小的 softening。因此它是可视化模型，不是用于严格证明轨道的积分器。",
       "已知解以初始位置、初始速度、质量和显示元数据保存，应用从这些初始条件向前积分。",
       "公开表预设使用公开初始条件表 [2] 的六位小数数值，并在本查看器中用 RK45 筛选。高精度预设使用 15 位小数初始条件 [3]，因为若干六位小数数值不适合长时间播放。",
-      "3D 标签页从 Li 和 Liao 报告的等质量三维周期轨道初始条件 [5] 中选取较适合观看的一部分。",
+      "3D 标签页从 Li 和 Liao 报告的等质量三维周期轨道初始条件 [5] 中选取较适合观看的一部分，其中同时包含线性稳定和线性不稳定例子。",
       "History、鼠标滚轮缩放和 Perturb 都是观察辅助工具。Perturb 只施加一次小扰动，不会持续注入噪声。",
     ],
     sourceTableTitle: "公开初始条件表",
@@ -829,6 +829,32 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
         "Orbit: masses 3, 4, and 5 begin at a 3-4-5 triangle, fall inward, and scatter apart.",
       sourceNote: "Source: classic Pythagorean three-body scattering benchmark.",
     },
+    "spatial-o1-equal-mass": {
+      family: "3D equal-mass periodic orbit",
+      name: "Spatial O1",
+      stabilityLabel: "3D periodic / unstable",
+      stabilitySummary:
+        "Status: linearly unstable in Li and Liao's 3D initial-condition table. It is included to show that the 3D catalog is not only stable examples.",
+      summary:
+        "Orbit: a short-period equal-mass spatial orbit with a shallow vertical start and an unstable classification.",
+      sourceNote:
+        "Source: [5] Li-Liao 3D table O_1(1.0); z0 = 0.00772694581650574, T = 6.04741109591794.",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "Open the 3D initial-condition set",
+    },
+    "spatial-o2-equal-mass": {
+      family: "3D equal-mass periodic orbit",
+      name: "Spatial O2",
+      stabilityLabel: "3D periodic / unstable",
+      stabilitySummary:
+        "Status: linearly unstable in Li and Liao's 3D initial-condition table. Small perturbations are expected to grow in the linearized dynamics.",
+      summary:
+        "Orbit: a compact 3D loop with a stronger vertical offset and unstable linear classification.",
+      sourceNote:
+        "Source: [5] Li-Liao 3D table O_2(1.0); z0 = 0.426476007762008, T = 6.36267196772112.",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "Open the 3D initial-condition set",
+    },
     "spatial-o3-equal-mass": {
       family: "3D equal-mass periodic orbit",
       name: "Spatial O3",
@@ -852,6 +878,19 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
         "Orbit: a compact three-dimensional periodic motion with a low vertical offset and visible depth weave.",
       sourceNote:
         "Source: [5] Li-Liao 3D table O_4(1.0); z0 = 0.106564650719102, T = 7.23030545798305.",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "Open the 3D initial-condition set",
+    },
+    "spatial-o5-equal-mass": {
+      family: "3D equal-mass periodic orbit",
+      name: "Spatial O5",
+      stabilityLabel: "3D periodic / unstable",
+      stabilitySummary:
+        "Status: linearly unstable in Li and Liao's 3D initial-condition table. It is a visually energetic unstable contrast to O3/O4.",
+      summary:
+        "Orbit: a short 3D orbit with a large out-of-plane velocity component and a wider spatial sweep.",
+      sourceNote:
+        "Source: [5] Li-Liao 3D table O_5(1.0); z0 = 0.0835526121571887, T = 7.65351114882614.",
       sourceUrl: threeDInitialConditionsUrl,
       sourceLinkLabel: "Open the 3D initial-condition set",
     },
@@ -1044,6 +1083,30 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
       summary: "軌道: 質量 3、4、5 の天体を 3-4-5 三角形から始め、近接遭遇を経て散乱させます。",
       sourceNote: "出典: 古典的な Pythagorean three-body 散乱ベンチマーク。",
     },
+    "spatial-o1-equal-mass": {
+      family: "3D等質量周期軌道",
+      name: "Spatial O1",
+      stabilityLabel: "3D周期解 / 不安定",
+      stabilitySummary:
+        "状態: Li と Liao の3D初期条件表では線形不安定です。3Dカタログが安定例だけに見えないよう、対照例として入れています。",
+      summary: "軌道: 浅い鉛直初期位置から始まる、短周期の等質量3D不安定軌道です。",
+      sourceNote:
+        "出典: [5] Li-Liao 3D表 O_1(1.0); z0 = 0.00772694581650574, T = 6.04741109591794。",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "3D初期条件セットを開く",
+    },
+    "spatial-o2-equal-mass": {
+      family: "3D等質量周期軌道",
+      name: "Spatial O2",
+      stabilityLabel: "3D周期解 / 不安定",
+      stabilitySummary:
+        "状態: Li と Liao の3D初期条件表では線形不安定です。線形化した運動では小さなずれが成長すると考えます。",
+      summary: "軌道: やや大きい鉛直オフセットを持つ、コンパクトな3D不安定ループです。",
+      sourceNote:
+        "出典: [5] Li-Liao 3D表 O_2(1.0); z0 = 0.426476007762008, T = 6.36267196772112。",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "3D初期条件セットを開く",
+    },
     "spatial-o3-equal-mass": {
       family: "3D等質量周期軌道",
       name: "Spatial O3",
@@ -1065,6 +1128,18 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
       summary: "軌道: 小さめの鉛直オフセットから、奥行きのある編み込みを作る3D周期運動です。",
       sourceNote:
         "出典: [5] Li-Liao 3D表 O_4(1.0); z0 = 0.106564650719102, T = 7.23030545798305。",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "3D初期条件セットを開く",
+    },
+    "spatial-o5-equal-mass": {
+      family: "3D等質量周期軌道",
+      name: "Spatial O5",
+      stabilityLabel: "3D周期解 / 不安定",
+      stabilitySummary:
+        "状態: Li と Liao の3D初期条件表では線形不安定です。O3/O4 などの安定例と比べるための見やすい不安定例です。",
+      summary: "軌道: 面外速度が大きく、短い周期で広い空間的な振れを作る3D軌道です。",
+      sourceNote:
+        "出典: [5] Li-Liao 3D表 O_5(1.0); z0 = 0.0835526121571887, T = 7.65351114882614。",
       sourceUrl: threeDInitialConditionsUrl,
       sourceLinkLabel: "3D初期条件セットを開く",
     },
@@ -1253,6 +1328,30 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
       summary: "轨道: 质量为 3、4、5 的天体从 3-4-5 三角形开始，经过近距离遭遇后散射开。",
       sourceNote: "来源: 经典 Pythagorean three-body 散射基准。",
     },
+    "spatial-o1-equal-mass": {
+      family: "3D 等质量周期轨道",
+      name: "Spatial O1",
+      stabilityLabel: "3D 周期解 / 不稳定",
+      stabilitySummary:
+        "状态: 在 Li 和 Liao 的 3D 初始条件表中线性不稳定。加入它是为了说明 3D 目录并不只包含稳定例子。",
+      summary: "轨道: 从很浅的垂直初始位置开始的短周期等质量 3D 不稳定轨道。",
+      sourceNote:
+        "来源: [5] Li-Liao 3D 表 O_1(1.0); z0 = 0.00772694581650574, T = 6.04741109591794。",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "打开 3D 初始条件集",
+    },
+    "spatial-o2-equal-mass": {
+      family: "3D 等质量周期轨道",
+      name: "Spatial O2",
+      stabilityLabel: "3D 周期解 / 不稳定",
+      stabilitySummary:
+        "状态: 在 Li 和 Liao 的 3D 初始条件表中线性不稳定。在线性化动力学中，小扰动预计会增长。",
+      summary: "轨道: 具有较强垂直偏移的紧凑 3D 回路，线性分类为不稳定。",
+      sourceNote:
+        "来源: [5] Li-Liao 3D 表 O_2(1.0); z0 = 0.426476007762008, T = 6.36267196772112。",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "打开 3D 初始条件集",
+    },
     "spatial-o3-equal-mass": {
       family: "3D 等质量周期轨道",
       name: "Spatial O3",
@@ -1274,6 +1373,18 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
       summary: "轨道: 低垂直偏移的紧凑三维周期运动，能看到明显的深度编织。",
       sourceNote:
         "来源: [5] Li-Liao 3D 表 O_4(1.0); z0 = 0.106564650719102, T = 7.23030545798305。",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "打开 3D 初始条件集",
+    },
+    "spatial-o5-equal-mass": {
+      family: "3D 等质量周期轨道",
+      name: "Spatial O5",
+      stabilityLabel: "3D 周期解 / 不稳定",
+      stabilitySummary:
+        "状态: 在 Li 和 Liao 的 3D 初始条件表中线性不稳定。它是与 O3/O4 等稳定例子对比的清晰不稳定例。",
+      summary: "轨道: 面外速度分量较大、空间扫动更宽的短周期 3D 轨道。",
+      sourceNote:
+        "来源: [5] Li-Liao 3D 表 O_5(1.0); z0 = 0.0835526121571887, T = 7.65351114882614。",
       sourceUrl: threeDInitialConditionsUrl,
       sourceLinkLabel: "打开 3D 初始条件集",
     },
