@@ -74,6 +74,34 @@ input {
   font-weight: 700;
 }
 
+.topActions {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.githubLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 0 12px;
+  color: var(--text);
+  background: rgba(18, 22, 31, 0.78);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.githubLink:hover,
+.githubLink:focus-visible {
+  color: #101219;
+  background: var(--accent);
+  outline: none;
+}
+
 .languageSelector {
   display: inline-flex;
   flex: 0 0 auto;
@@ -152,6 +180,108 @@ input {
   padding-left: 14px;
   border-left: 3px solid rgba(242, 201, 76, 0.7);
   font-size: 0.96rem;
+}
+
+.versionPanel {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.versionPanel summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 11px;
+  color: var(--text);
+  background: rgba(18, 22, 31, 0.78);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.versionPanel summary::-webkit-details-marker {
+  display: none;
+}
+
+.versionPanel summary:hover,
+.versionPanel summary:focus-visible {
+  border-color: rgba(242, 201, 76, 0.45);
+  outline: none;
+}
+
+.versionPanel summary span {
+  color: var(--accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.versionHistory {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 20;
+  display: grid;
+  gap: 14px;
+  width: min(640px, calc(100vw - 36px));
+  padding: 16px;
+  background: rgba(18, 22, 31, 0.98);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.42);
+}
+
+.versionHistory h2,
+.versionHistory h3,
+.versionHistory p {
+  margin: 0;
+}
+
+.versionHistory h2 {
+  font-size: 1rem;
+  letter-spacing: 0;
+}
+
+.versionHistory > div > p {
+  margin-top: 5px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.versionHistory ol {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.versionHistory li {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.versionHistory li > span {
+  color: var(--accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.86rem;
+  font-weight: 900;
+}
+
+.versionHistory h3 {
+  color: var(--text);
+  font-size: 0.94rem;
+  letter-spacing: 0;
+}
+
+.versionHistory li p {
+  margin-top: 3px;
+  color: var(--muted);
+  line-height: 1.55;
 }
 
 .classificationGuide {
@@ -758,6 +888,21 @@ input {
     flex-direction: column;
   }
 
+  .topActions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .githubLink {
+    flex: 0 0 auto;
+  }
+
+  .versionHistory {
+    right: auto;
+    left: 0;
+    width: min(calc(100vw - 24px), 640px);
+  }
+
   .languageSelector {
     width: 100%;
     flex-wrap: wrap;
@@ -773,6 +918,11 @@ input {
 
   .classificationLegend {
     grid-template-columns: 1fr;
+  }
+
+  .versionHistory li {
+    grid-template-columns: 1fr;
+    gap: 5px;
   }
 
   .familyGuide dl {

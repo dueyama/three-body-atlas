@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Orbit } from "lucide-react";
+import { ArrowRight, Github, Orbit } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { solutions } from "@/data/solutions";
@@ -70,7 +70,40 @@ export function HomePage() {
             <Orbit size={22} />
             <span>{t.appTitle}</span>
           </div>
-          <LanguageSelector />
+          <div className="topActions">
+            <a
+              className="githubLink"
+              href="https://github.com/dueyama/three-body-atlas"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <Github size={16} />
+              <span>{t.githubLinkLabel}</span>
+            </a>
+            <details className="versionPanel">
+              <summary aria-label={t.versionHistoryLabel}>
+                <span>{t.currentVersion}</span>
+              </summary>
+              <div className="versionHistory">
+                <div>
+                  <h2>{t.versionHistoryTitle}</h2>
+                  <p>{t.versionHistoryIntro}</p>
+                </div>
+                <ol>
+                  {t.versionHistory.map((entry) => (
+                    <li key={entry.version}>
+                      <span>{entry.version}</span>
+                      <div>
+                        <h3>{entry.title}</h3>
+                        <p>{entry.body}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </details>
+            <LanguageSelector />
+          </div>
         </div>
         <h1>{t.heroTitle}</h1>
         <p>{t.heroBody}</p>

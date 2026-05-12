@@ -11,7 +11,7 @@ Cixin Liu's *The Three-Body Problem* turns a world with three suns into fiction.
 - 2D / 3D catalog tabs
 - RK4 / Dormand-Prince RK45 integrator switch
 - Orbit history display, mouse-wheel zoom, and one-shot perturbation
-- Browser-language localization for Japanese, English, and Chinese
+- Browser-language localization for Japanese, English, Chinese, and French
 - Catalog thumbnails generated from the same initial-condition data
 
 ## Current Scope
@@ -24,6 +24,22 @@ This is a visualization app, not a proof-grade orbit integrator.
 - Some entries use six-decimal public-table values screened with RK45.
 - Small softening is used near close encounters to avoid singular forces.
 - The 3D view is currently a projected visualization of spatial initial conditions, not a full 3D camera tool.
+
+## Version
+
+Current version: `v1.4`
+
+Version history is intentionally coarse:
+
+- `v1.4` - French localization: French UI, version history, simulator controls, source notes, and orbit descriptions.
+- `v1.3` - Version history and public metadata: visible version badge, release history, MIT license, and dueyama GitHub links.
+- `v1.2` - Public polish: browser icon, clearer README/project metadata, and public-safe GitHub/Vercel workflow notes.
+- `v1.1` - Clearer classifications: orbit type and stability separated, with family labels and stability wording explained.
+- `v1.0` - 2D and 3D atlas: 2D/projected-3D tabs, source links, and stable/unstable spatial orbit examples.
+- `v0.4` - RK45 and high-precision presets: adaptive Dormand-Prince RK45, higher-precision periodic presets, and references.
+- `v0.3` - Localized explanations: Japanese, English, and Chinese UI, browser-language selection, and method notes.
+- `v0.2` - Interactive simulator controls: stability badges, reference traces, wheel zoom, long history, perturbation, and RK4.
+- `v0.1` - Initial 2D catalog: Next.js app, detail pages, and Canvas simulation.
 
 ## Local Development
 
@@ -70,3 +86,11 @@ Recommended public release flow:
 - S. J. Liao, "A comment on Three Classes of Newtonian Three-Body Planar Periodic Orbits," high-precision initial-condition note.
 - X. Li and S. Liao, "Discovery of 10,059 new three-dimensional periodic orbits of general three-body problem," arXiv:2508.08568, 2025.
 - Cixin Liu, *The Three-Body Problem*, translated by Ken Liu, Tor Books, 2014; originally published in Chinese as *San ti*, 2006.
+
+## License
+
+MIT License. See [LICENSE](LICENSE).
+
+## Maintainer
+
+GitHub: [@dueyama](https://github.com/dueyama)

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { OrbitClassKind, StabilityKind } from "@/types";
 
-export type Locale = "en" | "ja" | "zh";
+export type Locale = "en" | "ja" | "zh" | "fr";
 export type LocalePreference = Locale | "auto";
 
 type SolutionText = {
@@ -31,8 +31,19 @@ type GuideItemText = {
   body: string;
 };
 
+type VersionHistoryEntry = {
+  version: string;
+  title: string;
+  body: string;
+};
+
 type UiText = {
   appTitle: string;
+  currentVersion: string;
+  versionHistoryLabel: string;
+  versionHistoryTitle: string;
+  versionHistoryIntro: string;
+  versionHistory: VersionHistoryEntry[];
   heroTitle: string;
   heroBody: string;
   catalogNote: string;
@@ -54,6 +65,8 @@ type UiText = {
   languageEnglish: string;
   languageJapanese: string;
   languageChinese: string;
+  languageFrench: string;
+  githubLinkLabel: string;
   backToList: string;
   controlsLabel: string;
   pause: string;
@@ -93,6 +106,58 @@ export const threeDArxivUrl = "https://arxiv.org/abs/2508.08568";
 const uiText: Record<Locale, UiText> = {
   en: {
     appTitle: "ThreeBody Atlas",
+    currentVersion: "v1.4",
+    versionHistoryLabel: "Version history",
+    versionHistoryTitle: "Release path",
+    versionHistoryIntro:
+      "A compact history of the main product-level changes. Patch-level fixes and local workflow notes are intentionally omitted.",
+    versionHistory: [
+      {
+        version: "v1.4",
+        title: "French localization",
+        body: "Adds French UI, version history, simulator controls, source notes, and orbit descriptions.",
+      },
+      {
+        version: "v1.3",
+        title: "Version history and public metadata",
+        body: "Adds the visible version badge, release history, MIT license, and dueyama GitHub links.",
+      },
+      {
+        version: "v1.2",
+        title: "Public polish",
+        body: "Adds the browser icon, clearer README/project metadata, and public-safe GitHub/Vercel workflow notes.",
+      },
+      {
+        version: "v1.1",
+        title: "Clearer classifications",
+        body: "Separates orbit type from stability, explains card family labels, and refines stable, unstable, unverified, and escape wording.",
+      },
+      {
+        version: "v1.0",
+        title: "2D and 3D atlas",
+        body: "Promotes the app from a planar demo into a curated atlas with 2D and projected 3D tabs, source links, and stable/unstable spatial examples.",
+      },
+      {
+        version: "v0.4",
+        title: "RK45 and high-precision presets",
+        body: "Adds adaptive Dormand-Prince RK45, high-precision periodic orbit presets, and the reference list for source material.",
+      },
+      {
+        version: "v0.3",
+        title: "Localized explanations",
+        body: "Adds Japanese, English, and Chinese UI text, browser-language selection, and the calculation-method explanation.",
+      },
+      {
+        version: "v0.2",
+        title: "Interactive simulator controls",
+        body: "Adds stability badges, reference traces, wheel zoom, long history, perturbation, and the RK4 integrator.",
+      },
+      {
+        version: "v0.1",
+        title: "Initial 2D catalog",
+        body: "Starts the Next.js app with a local 2D three-body catalog, detail pages, and canvas simulation.",
+      },
+    ],
     heroTitle: "A working catalog of three-body orbits.",
     heroBody:
       "Liu Cixin's The Three-Body Problem [1] turns an unpredictable triple-star world into fiction; this atlas stays closer to the equations, integrating known planar orbits from published initial conditions [2][3].",
@@ -143,6 +208,8 @@ const uiText: Record<Locale, UiText> = {
     languageEnglish: "English",
     languageJapanese: "日本語",
     languageChinese: "中文",
+    languageFrench: "Français",
+    githubLinkLabel: "GitHub",
     backToList: "List",
     controlsLabel: "Simulation controls",
     pause: "Pause",
@@ -218,8 +285,241 @@ const uiText: Record<Locale, UiText> = {
       },
     ],
   },
+  fr: {
+    appTitle: "ThreeBody Atlas",
+    currentVersion: "v1.4",
+    versionHistoryLabel: "Historique des versions",
+    versionHistoryTitle: "Parcours des versions",
+    versionHistoryIntro:
+      "Un historique volontairement compact des changements principaux. Les corrections mineures et les notes de travail local ne sont pas listées.",
+    versionHistory: [
+      {
+        version: "v1.4",
+        title: "Localisation française",
+        body: "Ajout de l'interface française, de l'historique, des contrôles de simulation, des notes de source et des descriptions d'orbites.",
+      },
+      {
+        version: "v1.3",
+        title: "Historique et métadonnées publiques",
+        body: "Ajout du badge de version visible, de l'historique, de la licence MIT et des liens GitHub de dueyama.",
+      },
+      {
+        version: "v1.2",
+        title: "Finition publique",
+        body: "Ajout de l'icône du navigateur, de métadonnées de projet plus claires et de notes de workflow GitHub/Vercel.",
+      },
+      {
+        version: "v1.1",
+        title: "Classifications plus claires",
+        body: "Séparation du type d'orbite et de la stabilité, avec explication des familles et des libellés stable, instable, non vérifié et échappement.",
+      },
+      {
+        version: "v1.0",
+        title: "Atlas 2D et 3D",
+        body: "Passage d'une démonstration plane à un atlas avec onglets 2D et 3D projetée, liens de sources et exemples spatiaux stables ou instables.",
+      },
+      {
+        version: "v0.4",
+        title: "RK45 et préréglages haute précision",
+        body: "Ajout de Dormand-Prince RK45 adaptatif, de préréglages périodiques haute précision et de la liste de références.",
+      },
+      {
+        version: "v0.3",
+        title: "Explications localisées",
+        body: "Ajout des interfaces japonaise, anglaise et chinoise, du choix selon la langue du navigateur et des notes de méthode.",
+      },
+      {
+        version: "v0.2",
+        title: "Contrôles interactifs",
+        body: "Ajout des badges de stabilité, traces de référence, zoom à la molette, historique long, perturbation et intégrateur RK4.",
+      },
+      {
+        version: "v0.1",
+        title: "Catalogue 2D initial",
+        body: "Démarrage de l'application Next.js avec catalogue 2D, pages de détail et simulation Canvas.",
+      },
+    ],
+    heroTitle: "Un catalogue interactif d'orbites à trois corps.",
+    heroBody:
+      "Le Problème à trois corps de Liu Cixin [1] transforme un monde à trois soleils imprévisible en fiction; cet atlas reste plus près des équations, en intégrant des orbites planes connues à partir de conditions initiales publiées [2][3].",
+    catalogNote:
+      "Commencez par les chorégraphies 2D, les équilibres relatifs et la diffusion, puis passez au nouvel onglet 3D pour des exemples périodiques spatiaux.",
+    solutionGridLabel: "Solutions connues du problème à trois corps",
+    classificationGuideTitle: "Règle de classification",
+    classificationGuideBody:
+      "Le type d'orbite et la stabilité sont affichés séparément. La plupart des entrées sont des solutions périodiques; Lagrange est un équilibre relatif, et Pythagorean est un exemple transitoire de diffusion. Li et Liao [6] ont vérifié les 15 exemples plans originaux: l'application marque les sept cas du tableau 1 comme instables, les correspondances du tableau 3 incluses ici comme stables, et laisse les préréglages moins certains comme non vérifiés.",
+    familyGuideTitle: "Noms de familles sur les cartes",
+    familyGuideItems: [
+      {
+        label: "Chorégraphie",
+        body: "Les trois corps suivent la même courbe avec un décalage temporel.",
+      },
+      {
+        label: "Équilibre relatif",
+        body: "La forme reste fixe tandis que toute la configuration tourne.",
+      },
+      {
+        label: "Famille",
+        body: "Groupe nommé d'orbites périodiques apparentées, comme butterfly, moth ou des variantes en huit.",
+      },
+      {
+        label: "Diffusion / échappement",
+        body: "Exemple non périodique où une ou plusieurs masses finissent par s'éloigner.",
+      },
+    ],
+    classificationLabel: "Classification de l'orbite",
+    orbitClassLabel: "Type d'orbite",
+    stabilityClassLabel: "Stabilité",
+    orbitClassLabels: {
+      periodic: "Solution périodique",
+      "relative-equilibrium": "Équilibre relatif",
+      transient: "Diffusion transitoire",
+    },
+    stabilityLabels: {
+      stable: "Linéairement stable",
+      unstable: "Instable",
+      unverified: "Stabilité non vérifiée",
+      chaotic: "Chaotique / échappement",
+    },
+    dimensionTabsLabel: "Dimension de l'orbite",
+    dimension2d: "2D",
+    dimension3d: "3D",
+    languageLabel: "Langue",
+    languageAuto: "Auto",
+    languageEnglish: "English",
+    languageJapanese: "日本語",
+    languageChinese: "中文",
+    languageFrench: "Français",
+    githubLinkLabel: "GitHub",
+    backToList: "Liste",
+    controlsLabel: "Contrôles de simulation",
+    pause: "Pause",
+    play: "Lecture",
+    step: "Pas",
+    history: "Historique",
+    perturb: "Perturber",
+    reset: "Réinitialiser",
+    autoRotate: "Rotation auto",
+    resetView: "Réinit. vue",
+    speed: "Vitesse",
+    integrator: "Intégrateur",
+    rk4: "RK4",
+    rk45: "RK45",
+    zoom: "zoom",
+    relativeReference: "Les cercles fins en pointillés montrent l'orbite idéale d'équilibre relatif.",
+    periodicReference:
+      "Les trajectoires fines en pointillés sont des traces numériques de référence calculées depuis les conditions initiales.",
+    transientReference: "Les trajectoires fines en pointillés montrent la trajectoire transitoire de référence.",
+    methodTitle: "Méthode de calcul",
+    methodItems: [
+      "La simulation en direct utilise la gravitation newtonienne avec G = 1 et un pas de temps fixé pour chaque préréglage.",
+      "L'intégrateur peut basculer entre RK4 à sous-pas fixes et Dormand-Prince RK45 adaptatif [4].",
+      "Un petit terme de softening est appliqué près des rencontres rapprochées pour éviter les singularités; ce modèle sert donc à la visualisation, pas à une preuve numérique stricte.",
+      "Les solutions connues sont stockées comme positions initiales, vitesses, masses et métadonnées d'affichage. L'application intègre ensuite vers l'avant.",
+      "Les préréglages de la table publique utilisent des conditions initiales à six décimales [2] après sélection avec RK45. Les préréglages haute précision utilisent des conditions à 15 décimales [3].",
+      "L'onglet 3D rassemble un sous-ensemble choisi d'orbites périodiques spatiales de masses égales rapportées par Li et Liao [5], avec des exemples linéairement stables et instables.",
+      "History, le zoom à la molette et Perturb sont des outils d'observation: Perturb applique une petite impulsion unique et n'injecte pas de bruit en continu.",
+    ],
+    sourceTableTitle: "Table publiée des orbites périodiques",
+    sourceTableBody:
+      "La table donne les conditions initiales d'orbites périodiques planes à trois corps de masses égales sous forme p1, p2 et période T, dans des unités où G = 1 et chaque masse vaut 1. Les préréglages de table publique ici sont des entrées à six décimales filtrées avec RK45; les préréglages haute précision utilisent des valeurs à 15 décimales pour un meilleur comportement numérique.",
+    sourceTableLinkLabel: "Ouvrir le PDF des conditions initiales",
+    highPrecisionLinkLabel: "Ouvrir la note haute précision",
+    threeDSourceLinkLabel: "Ouvrir le jeu de conditions 3D",
+    referencesTitle: "Références",
+    references: [
+      {
+        id: "1",
+        citation:
+          "Liu Cixin, Le Problème à trois corps, traduction anglaise par Ken Liu, Tor Books, 2014; original chinois San ti, 2006.",
+        url: "https://books.google.com/books?vid=ISBN9780765377067",
+      },
+      {
+        id: "2",
+        citation:
+          "A. Hudomal, \"New Periodic Three-Body Orbits,\" table publique de conditions initiales pour des orbites périodiques planes de masses égales.",
+        url: initialConditionsUrl,
+      },
+      {
+        id: "3",
+        citation:
+          "S. J. Liao, \"A comment on Three Classes of Newtonian Three-Body Planar Periodic Orbits,\" conditions initiales à 15 décimales et discussion de stabilité.",
+        url: highPrecisionCommentUrl,
+      },
+      {
+        id: "4",
+        citation:
+          "J. R. Dormand and P. J. Prince, \"A family of embedded Runge-Kutta formulae,\" Journal of Computational and Applied Mathematics, 6(1), 19-26, 1980. DOI: 10.1016/0771-050X(80)90013-3.",
+        url: "https://doi.org/10.1016/0771-050X(80)90013-3",
+      },
+      {
+        id: "5",
+        citation:
+          "X. Li and S. Liao, \"Discovery of 10,059 new three-dimensional periodic orbits of general three-body problem,\" arXiv:2508.08568, 2025; données initiales dans sjtu-liao/three-body.",
+        url: threeDArxivUrl,
+      },
+      {
+        id: "6",
+        citation:
+          "X. Li and S. Liao, \"On the stability of the three classes of Newtonian three-body planar periodic orbits,\" Science China Physics, Mechanics & Astronomy, 57, 2121-2126, 2014. DOI: 10.1007/s11433-014-5563-5.",
+        url: "https://doi.org/10.1007/s11433-014-5563-5",
+      },
+    ],
+  },
   ja: {
     appTitle: "ThreeBody Atlas",
+    currentVersion: "v1.4",
+    versionHistoryLabel: "バージョン履歴",
+    versionHistoryTitle: "開発の遍歴",
+    versionHistoryIntro:
+      "主要な変更だけをまとめています。細かな修正やローカル運用メモは省略しています。",
+    versionHistory: [
+      {
+        version: "v1.4",
+        title: "フランス語ローカライズ",
+        body: "フランス語UI、バージョン履歴、シミュレータ操作、出典メモ、軌道説明を追加。",
+      },
+      {
+        version: "v1.3",
+        title: "履歴表示と公開メタ情報",
+        body: "現在バージョンの表示、クリックで開く履歴、MITライセンス、dueyamaのGitHubリンクを追加。",
+      },
+      {
+        version: "v1.2",
+        title: "公開前の整備",
+        body: "ブラウザアイコン、READMEのメタ情報、GitHub/Vercelへ出すための公開安全な運用を整理。",
+      },
+      {
+        version: "v1.1",
+        title: "分類表示の整理",
+        body: "軌道型と安定性を分離し、カード上部の族名や、安定・不安定・未確認・脱出の表現を説明。",
+      },
+      {
+        version: "v1.0",
+        title: "2D/3Dアトラス化",
+        body: "平面デモから、2Dと投影3Dタブ、出典リンク、安定/不安定な空間軌道例を持つカタログへ拡張。",
+      },
+      {
+        version: "v0.4",
+        title: "RK45と高精度プリセット",
+        body: "Dormand-Prince RK45、高精度周期軌道プリセット、参考文献リストを追加。",
+      },
+      {
+        version: "v0.3",
+        title: "多言語の説明",
+        body: "日本語・英語・中国語UI、ブラウザ言語に応じた表示、計算方法の説明を追加。",
+      },
+      {
+        version: "v0.2",
+        title: "シミュレータ操作",
+        body: "安定性バッジ、参照軌道、ホイールズーム、長い履歴、摂動ボタン、RK4積分器を追加。",
+      },
+      {
+        version: "v0.1",
+        title: "初期2Dカタログ",
+        body: "Next.jsアプリとして、2D三体問題カタログ、詳細ページ、Canvasシミュレーションを開始。",
+      },
+    ],
     heroTitle: "三体問題の軌道カタログ",
     heroBody:
       "劉慈欣『三体』[1] は、予測しがたい三つの太陽の世界を文明の物語にしました。このアトラスでは、そのロマンの手前にある数式を、公開・高精度の初期条件 [2][3] からその場で積分して眺めます。",
@@ -270,6 +570,8 @@ const uiText: Record<Locale, UiText> = {
     languageEnglish: "English",
     languageJapanese: "日本語",
     languageChinese: "中文",
+    languageFrench: "Français",
+    githubLinkLabel: "GitHub",
     backToList: "一覧",
     controlsLabel: "シミュレーション操作",
     pause: "停止",
@@ -346,6 +648,58 @@ const uiText: Record<Locale, UiText> = {
   },
   zh: {
     appTitle: "ThreeBody Atlas",
+    currentVersion: "v1.4",
+    versionHistoryLabel: "版本历史",
+    versionHistoryTitle: "开发历程",
+    versionHistoryIntro:
+      "这里只保留主要产品级变化，省略细小修正和本地流程记录。",
+    versionHistory: [
+      {
+        version: "v1.4",
+        title: "法语本地化",
+        body: "加入法语界面、版本历史、模拟器控制、来源说明和轨道描述。",
+      },
+      {
+        version: "v1.3",
+        title: "版本历史和公开元信息",
+        body: "加入当前版本显示、可点击展开的历史记录、MIT 许可证，以及 dueyama 的 GitHub 链接。",
+      },
+      {
+        version: "v1.2",
+        title: "公开发布整理",
+        body: "加入浏览器图标、README 元信息，并整理 GitHub/Vercel 公开发布流程。",
+      },
+      {
+        version: "v1.1",
+        title: "分类显示整理",
+        body: "把轨道类型和稳定性分开，并说明卡片族名以及稳定、不稳定、未确认、逃逸等标签。",
+      },
+      {
+        version: "v1.0",
+        title: "2D/3D 图鉴",
+        body: "从平面演示扩展为带 2D 和投影 3D 标签页、来源链接、稳定和不稳定空间轨道例子的图鉴。",
+      },
+      {
+        version: "v0.4",
+        title: "RK45 和高精度预设",
+        body: "加入自适应 Dormand-Prince RK45、高精度周期轨道预设和参考文献列表。",
+      },
+      {
+        version: "v0.3",
+        title: "多语言说明",
+        body: "加入日语、英语、中文界面，浏览器语言选择，以及计算方法说明。",
+      },
+      {
+        version: "v0.2",
+        title: "模拟器交互控制",
+        body: "加入稳定性标签、参考轨迹、滚轮缩放、长历史轨迹、扰动按钮和 RK4 积分器。",
+      },
+      {
+        version: "v0.1",
+        title: "初始 2D 图鉴",
+        body: "以 Next.js 应用开始，包含 2D 三体问题图鉴、详情页和 Canvas 模拟。",
+      },
+    ],
     heroTitle: "三体问题轨道图鉴",
     heroBody:
       "刘慈欣《三体》[1] 把不可预测的三星世界写成文明故事；这个图鉴回到方程本身，从公开和高精度初始条件 [2][3] 出发，在浏览器中积分并观察轨道。",
@@ -396,6 +750,8 @@ const uiText: Record<Locale, UiText> = {
     languageEnglish: "English",
     languageJapanese: "日本語",
     languageChinese: "中文",
+    languageFrench: "Français",
+    githubLinkLabel: "GitHub",
     backToList: "列表",
     controlsLabel: "模拟控制",
     pause: "暂停",
@@ -537,6 +893,53 @@ const screenedPublicPresetCopy: Record<
       summary: "A long-period figure-eight-family path with many compact returns.",
     },
   },
+  fr: {
+    "butterfly-i-2b": {
+      family: "Chorégraphie périodique",
+      name: "Butterfly II",
+      summary: "Une boucle compacte de la famille butterfly avec un croisement central serré.",
+    },
+    "butterfly-i-5a": {
+      family: "Chorégraphie périodique",
+      name: "Butterfly I 5A",
+      summary: "Une orbite butterfly plus longue, avec une boucle tissée plus large.",
+    },
+    "butterfly-iii-6a": {
+      family: "Chorégraphie périodique",
+      name: "Butterfly III 6A",
+      summary: "Une boucle Butterfly III de période moyenne avec des croisements compacts répétés.",
+    },
+    "butterfly-iii-11a": {
+      family: "Chorégraphie périodique",
+      name: "Butterfly III 11A",
+      summary: "Une variante Butterfly III plus longue, au motif de croisements compacts.",
+    },
+    "moth-i-8f": {
+      family: "Chorégraphie périodique",
+      name: "Moth I 8F",
+      summary: "Une entrée moth de longue période dont la trace forme une grande silhouette ailée.",
+    },
+    "moth-vii-b-7a": {
+      family: "Chorégraphie périodique",
+      name: "Moth VIIb 7A",
+      summary: "Une orbite moth VIIb dense, mais encore lisible dans ses croisements.",
+    },
+    "figure-eight-v7c": {
+      family: "Famille en huit",
+      name: "Figure-eight V.7.C",
+      summary: "Une variante de la famille en huit avec une chorégraphie plus longue.",
+    },
+    "figure-eight-v11a": {
+      family: "Famille en huit",
+      name: "Figure-eight V.11.A",
+      summary: "Un préréglage en huit de période plus longue qui reste compact.",
+    },
+    "figure-eight-v14a": {
+      family: "Famille en huit",
+      name: "Figure-eight V.14.A",
+      summary: "Une orbite en huit de longue période avec de nombreux retours compacts.",
+    },
+  },
   ja: {
     "butterfly-i-2b": {
       family: "周期コレオグラフィー",
@@ -667,6 +1070,22 @@ function makeScreenedPublicPresetText(locale: Locale): Record<string, SolutionTe
             sourceNote: `来源: [2] 公开初始条件表 ${meta.label}; p1 = ${meta.p1}, p2 = ${meta.p2}, T = ${meta.period}。`,
             sourceUrl: initialConditionsUrl,
             sourceLinkLabel: "打开初始条件 PDF",
+          },
+        ];
+      }
+
+      if (locale === "fr") {
+        return [
+          slug,
+          {
+            ...copy,
+            summary: `Orbite: ${copy.summary}`,
+            stabilityLabel: "Périodique / table publique",
+            stabilitySummary:
+              "Statut: préréglage de visualisation filtré avec RK45 à partir de données publiques à six décimales. Une lecture longue peut dériver ou s'échapper.",
+            sourceNote: `Source: [2] table de conditions initiales ${meta.label}; p1 = ${meta.p1}, p2 = ${meta.p2}, T = ${meta.period}.`,
+            sourceUrl: initialConditionsUrl,
+            sourceLinkLabel: "Ouvrir le PDF des conditions initiales",
           },
         ];
       }
@@ -945,6 +1364,256 @@ const solutionText: Record<Locale, Record<string, SolutionText>> = {
         "Source: [5] Li-Liao 3D table O_27(1.0); z0 = 0.117108530067078, T = 31.7238726897393.",
       sourceUrl: threeDInitialConditionsUrl,
       sourceLinkLabel: "Open the 3D initial-condition set",
+    },
+  },
+  fr: {
+    "figure-eight": {
+      family: "Chorégraphie de masses égales",
+      name: "Orbite en huit",
+      stabilityLabel: "Stable / classique",
+      stabilitySummary:
+        "Statut: linéairement stable au sens hamiltonien non dissipatif. Les perturbations ne décroissent pas forcément, mais ne s'écartent pas immédiatement de façon exponentielle.",
+      summary:
+        "Orbite: trois masses égales se poursuivent sur la même courbe horizontale en forme de huit.",
+      sourceNote: "Source: solution plane classique de Chenciner-Montgomery.",
+    },
+    "lagrange-equilateral": {
+      family: "Équilibre relatif",
+      name: "Triangle équilatéral de Lagrange",
+      stabilityLabel: "Instable / exact",
+      stabilitySummary:
+        "Statut: équilibre relatif exact, mais instable pour masses égales selon la condition classique de Routh-Gascheau.",
+      summary:
+        "Orbite: les corps gardent une forme de triangle équilatéral tandis que tout le système tourne.",
+      sourceNote: "Source: l'une des configurations centrales classiques d'Euler et Lagrange.",
+    },
+    "butterfly-i": {
+      family: "Chorégraphie périodique",
+      name: "Butterfly I",
+      stabilityLabel: "Instable / haute précision",
+      stabilitySummary:
+        "Statut: Li et Liao [6] le placent parmi sept cas plans originaux qui quittent l'orbite périodique rapportée dans de longs calculs CNS haute précision.",
+      summary:
+        "Orbite: trois masses égales tissent une boucle compacte en forme de butterfly depuis un départ collinéaire symétrique.",
+      sourceNote:
+        "Source: [3] condition Butterfly I à 15 décimales; p1 = 0.306892758965492, p2 = 0.125506782829762, T = 6.23564136316479.",
+      sourceUrl: highPrecisionCommentUrl,
+      sourceLinkLabel: "Ouvrir la note haute précision",
+    },
+    ...makeScreenedPublicPresetText("fr"),
+    "butterfly-i-2b": {
+      family: "Chorégraphie périodique",
+      name: "Butterfly II",
+      stabilityLabel: "Stable / table publique",
+      stabilitySummary:
+        "Statut: le cas Butterfly II correspondant à 15 décimales apparaît dans le tableau stable 3 de Li et Liao [6]. Ce visualiseur utilise le préréglage public à six décimales.",
+      summary:
+        "Orbite: une boucle compacte de la famille butterfly avec un croisement central serré.",
+      sourceNote:
+        "Source: [2] table publique de conditions initiales I.A.2.B; comparaison de stabilité: [6] tableau 3 Butterfly II.",
+      sourceUrl: initialConditionsUrl,
+      sourceLinkLabel: "Ouvrir le PDF des conditions initiales",
+    },
+    goggles: {
+      family: "Chorégraphie périodique",
+      name: "Goggles",
+      stabilityLabel: "Instable / haute précision",
+      stabilitySummary:
+        "Statut: Li et Liao [6] le listent parmi les sept cas plans originaux qui finissent par quitter l'orbite périodique.",
+      summary: "Orbite: les trois corps dessinent un motif serré ressemblant à deux lentilles.",
+      sourceNote:
+        "Source: [3] condition Goggles à 15 décimales; p1 = 0.0833000564575194, p2 = 0.127889282226563, T = 10.4668176954385.",
+      sourceUrl: highPrecisionCommentUrl,
+      sourceLinkLabel: "Ouvrir la note haute précision",
+    },
+    "yin-yang-i-a": {
+      family: "Chorégraphie périodique",
+      name: "Yin-yang I alpha",
+      stabilityLabel: "Instable / haute précision",
+      stabilitySummary:
+        "Statut: Li et Liao [6] placent cette branche Yin-yang I parmi les sept cas plans originaux les plus probablement instables.",
+      summary: "Orbite: motif périodique équilibré à deux lobes, proche d'un yin-yang.",
+      sourceNote:
+        "Source: [3] condition Yin-yang I alpha à 15 décimales; p1 = 0.513938054919243, p2 = 0.304736003875733, T = 17.328369755004.",
+      sourceUrl: highPrecisionCommentUrl,
+      sourceLinkLabel: "Ouvrir la note haute précision",
+    },
+    "yin-yang-i-b": {
+      family: "Chorégraphie périodique",
+      name: "Yin-yang I beta",
+      stabilityLabel: "Instable / haute précision",
+      stabilitySummary:
+        "Statut: Li et Liao [6] placent cette branche Yin-yang I parmi les sept cas plans originaux les plus probablement instables.",
+      summary: "Orbite: un motif périodique yin-yang plus petit à deux lobes.",
+      sourceNote:
+        "Source: [3] condition Yin-yang I beta à 15 décimales; p1 = 0.282698682308198, p2 = 0.327208786129952, T = 10.9625630756217.",
+      sourceUrl: highPrecisionCommentUrl,
+      sourceLinkLabel: "Ouvrir la note haute précision",
+    },
+    "moth-i": {
+      family: "Chorégraphie périodique",
+      name: "Moth I",
+      stabilityLabel: "Stable / table publique",
+      stabilitySummary:
+        "Statut: le cas Moth I correspondant à 15 décimales apparaît dans le tableau stable 3 de Li et Liao [6]. Ce visualiseur utilise le préréglage public à six décimales.",
+      summary: "Orbite: une orbite périodique à masses égales avec de larges boucles en forme de moth.",
+      sourceNote: "Source: [2] table publique de conditions initiales IVa.2.A.",
+      sourceUrl: initialConditionsUrl,
+      sourceLinkLabel: "Ouvrir le PDF des conditions initiales",
+    },
+    "moth-iii": {
+      family: "Chorégraphie périodique",
+      name: "Moth III",
+      stabilityLabel: "Instable / haute précision",
+      stabilitySummary:
+        "Statut: Li et Liao [6] le listent parmi les sept cas plans originaux qui deviennent non périodiques sur un intervalle assez long.",
+      summary: "Orbite: une grande orbite périodique de type moth, avec une période plus longue.",
+      sourceNote:
+        "Source: [3] condition Moth III à 15 décimales; p1 = 0.383443534851074, p2 = 0.377363693237305, T = 25.8406180475758.",
+      sourceUrl: highPrecisionCommentUrl,
+      sourceLinkLabel: "Ouvrir la note haute précision",
+    },
+    dragonfly: {
+      family: "Chorégraphie périodique",
+      name: "Dragonfly",
+      stabilityLabel: "Instable / haute précision",
+      stabilitySummary:
+        "Statut: Li et Liao [6] le listent parmi les sept cas plans originaux qui dérivent dans de longs calculs CNS haute précision.",
+      summary: "Orbite: une orbite périodique aux longs traits croisés, avec un contour de libellule.",
+      sourceNote:
+        "Source: [3] condition Dragonfly à 15 décimales; p1 = 0.080584285736084, p2 = 0.588836087036132, T = 21.2709751966648.",
+      sourceUrl: highPrecisionCommentUrl,
+      sourceLinkLabel: "Ouvrir la note haute précision",
+    },
+    yarn: {
+      family: "Chorégraphie périodique",
+      name: "Yarn",
+      stabilityLabel: "Instable / haute précision",
+      stabilitySummary:
+        "Statut: Li et Liao [6] le listent parmi les sept cas plans originaux qui deviennent non périodiques sur un intervalle assez long.",
+      summary: "Orbite: un long chemin bouclé qui se densifie jusqu'à former un motif de pelote.",
+      sourceNote:
+        "Source: [3] condition Yarn à 15 décimales; p1 = 0.559064247131347, p2 = 0.349191558837891, T = 55.5017624421301.",
+      sourceUrl: highPrecisionCommentUrl,
+      sourceLinkLabel: "Ouvrir la note haute précision",
+    },
+    pythagorean: {
+      family: "Diffusion chaotique / échappement",
+      name: "Problème pythagoricien à trois corps",
+      stabilityLabel: "Transitoire / échappement",
+      stabilitySummary:
+        "Statut: ce n'est ni une solution périodique ni une solution stable. C'est un cas de référence de diffusion avec échappement après rencontres rapprochées.",
+      summary:
+        "Orbite: des masses 3, 4 et 5 partent d'un triangle 3-4-5, subissent des rencontres rapprochées puis se dispersent.",
+      sourceNote: "Source: cas classique de diffusion pythagoricienne à trois corps.",
+    },
+    "spatial-o1-equal-mass": {
+      family: "Orbite 3D de masses égales",
+      name: "Spatial O1",
+      stabilityLabel: "Périodique 3D / instable",
+      stabilitySummary:
+        "Statut: linéairement instable dans la table 3D de Li et Liao. Cette entrée montre que l'onglet 3D ne contient pas seulement des cas stables.",
+      summary: "Orbite: courte orbite 3D instable de masses égales, avec une faible position verticale initiale.",
+      sourceNote:
+        "Source: [5] table 3D Li-Liao O_1(1.0); z0 = 0.00772694581650574, T = 6.04741109591794.",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "Ouvrir le jeu de conditions 3D",
+    },
+    "spatial-o6-equal-mass": {
+      family: "Orbite 3D de masses égales",
+      name: "Spatial O6",
+      stabilityLabel: "Périodique 3D / instable",
+      stabilitySummary:
+        "Statut: linéairement instable dans la table 3D de Li et Liao; de petites perturbations devraient croître dans la dynamique linéarisée.",
+      summary: "Orbite: boucle 3D plus longue, avec un balayage plan plus large et une classification instable.",
+      sourceNote:
+        "Source: [5] table 3D Li-Liao O_6(1.0); z0 = 0.257381108694003, T = 13.6540158417866.",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "Ouvrir le jeu de conditions 3D",
+    },
+    "spatial-o3-equal-mass": {
+      family: "Orbite 3D de masses égales",
+      name: "Spatial O3",
+      stabilityLabel: "Périodique 3D / stable",
+      stabilitySummary:
+        "Statut: linéairement stable dans la table 3D de Li et Liao. Le visualiseur l'affiche en projection rotative.",
+      summary: "Orbite: boucle 3D courte de masses égales qui sort du plan depuis un état initial collinéaire.",
+      sourceNote:
+        "Source: [5] table 3D Li-Liao O_3(1.0); z0 = 0.476878264280312, T = 6.83162203628444.",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "Ouvrir le jeu de conditions 3D",
+    },
+    "spatial-o4-equal-mass": {
+      family: "Orbite 3D de masses égales",
+      name: "Spatial O4",
+      stabilityLabel: "Périodique 3D / stable",
+      stabilitySummary:
+        "Statut: linéairement stable dans la table 3D publique. Son tracé compact en fait un bon premier préréglage 3D.",
+      summary: "Orbite: mouvement périodique 3D compact, avec un tissage de profondeur bien visible.",
+      sourceNote:
+        "Source: [5] table 3D Li-Liao O_4(1.0); z0 = 0.106564650719102, T = 7.23030545798305.",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "Ouvrir le jeu de conditions 3D",
+    },
+    "spatial-o5-equal-mass": {
+      family: "Orbite 3D de masses égales",
+      name: "Spatial O5",
+      stabilityLabel: "Périodique 3D / instable",
+      stabilitySummary:
+        "Statut: linéairement instable dans la table 3D de Li et Liao. C'est un contrepoint clair aux exemples stables O3/O4.",
+      summary: "Orbite: courte orbite 3D avec une composante de vitesse hors plan plus forte.",
+      sourceNote:
+        "Source: [5] table 3D Li-Liao O_5(1.0); z0 = 0.0835526121571887, T = 7.65351114882614.",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "Ouvrir le jeu de conditions 3D",
+    },
+    "spatial-o7-equal-mass": {
+      family: "Orbite 3D de masses égales",
+      name: "Spatial O7",
+      stabilityLabel: "Périodique 3D / stable",
+      stabilitySummary:
+        "Statut: linéairement stable dans la table 3D publique. Une lecture plus longue montre davantage de replis spatiaux.",
+      summary: "Orbite: orbite spatiale de masses égales plus longue, avec une oscillation hors plan marquée.",
+      sourceNote:
+        "Source: [5] table 3D Li-Liao O_7(1.0); z0 = -0.310609261713568, T = 13.9816179875663.",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "Ouvrir le jeu de conditions 3D",
+    },
+    "spatial-o9-equal-mass": {
+      family: "Orbite 3D de masses égales",
+      name: "Spatial O9",
+      stabilityLabel: "Périodique 3D / stable",
+      stabilitySummary:
+        "Statut: linéairement stable dans la table 3D de Li et Liao; il ajoute une oscillation hors plan plus haute à l'onglet 3D.",
+      summary: "Orbite: boucle spatiale stable de masses égales avec un balayage hors plan plus élevé.",
+      sourceNote:
+        "Source: [5] table 3D Li-Liao O_9(1.0); z0 = -0.403985524065069, T = 17.1987729253318.",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "Ouvrir le jeu de conditions 3D",
+    },
+    "spatial-o20-equal-mass": {
+      family: "Orbite 3D de masses égales",
+      name: "Spatial O20",
+      stabilityLabel: "Périodique 3D / stable",
+      stabilitySummary:
+        "Statut: linéairement stable dans la table 3D de Li et Liao. Sa période plus longue donne une structure spatiale plus développée.",
+      summary: "Orbite: chorégraphie 3D stable de plus longue période, avec de larges boucles hors plan.",
+      sourceNote:
+        "Source: [5] table 3D Li-Liao O_20(1.0); z0 = -0.217906242893983, T = 24.1805588975846.",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "Ouvrir le jeu de conditions 3D",
+    },
+    "spatial-o27-equal-mass": {
+      family: "Orbite 3D de masses égales",
+      name: "Spatial O27",
+      stabilityLabel: "Périodique 3D / stable",
+      stabilitySummary:
+        "Statut: linéairement stable dans la table 3D de Li et Liao. Son cycle plus long rend l'onglet 3D moins répétitif.",
+      summary: "Orbite: chorégraphie spatiale stable de longue période avec une tresse centrale compacte.",
+      sourceNote:
+        "Source: [5] table 3D Li-Liao O_27(1.0); z0 = 0.117108530067078, T = 31.7238726897393.",
+      sourceUrl: threeDInitialConditionsUrl,
+      sourceLinkLabel: "Ouvrir le jeu de conditions 3D",
     },
   },
   ja: {
@@ -1447,7 +2116,12 @@ function detectLocale(): Locale {
   const languages = navigator.languages.length > 0 ? navigator.languages : [navigator.language];
   const match = languages.find((language) => {
     const normalized = language.toLowerCase();
-    return normalized.startsWith("ja") || normalized.startsWith("zh") || normalized.startsWith("en");
+    return (
+      normalized.startsWith("ja") ||
+      normalized.startsWith("zh") ||
+      normalized.startsWith("fr") ||
+      normalized.startsWith("en")
+    );
   });
 
   if (!match) {
@@ -1461,11 +2135,14 @@ function detectLocale(): Locale {
   if (normalized.startsWith("zh")) {
     return "zh";
   }
+  if (normalized.startsWith("fr")) {
+    return "fr";
+  }
   return "en";
 }
 
 function isLocalePreference(value: string | null): value is LocalePreference {
-  return value === "auto" || value === "en" || value === "ja" || value === "zh";
+  return value === "auto" || value === "en" || value === "ja" || value === "zh" || value === "fr";
 }
 
 function readLocalePreference(): LocalePreference {

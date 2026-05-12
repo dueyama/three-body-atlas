@@ -3,7 +3,7 @@
 import { Languages } from "lucide-react";
 import { useUiText, type LocalePreference } from "@/lib/i18n";
 
-const languageOptions: LocalePreference[] = ["auto", "ja", "en", "zh"];
+const languageOptions: LocalePreference[] = ["auto", "ja", "en", "zh", "fr"];
 
 export function LanguageSelector() {
   const { preference, setPreference, t } = useUiText();
@@ -12,6 +12,7 @@ export function LanguageSelector() {
     ja: t.languageJapanese,
     en: t.languageEnglish,
     zh: t.languageChinese,
+    fr: t.languageFrench,
   };
 
   return (
