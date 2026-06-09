@@ -12,6 +12,7 @@ import {
   useUiText,
 } from "@/lib/i18n";
 import type { SolutionDimension, ThreeBodySolution } from "@/types";
+import { AppFooter } from "./AppFooter";
 import { LanguageSelector } from "./LanguageSelector";
 import { OrbitThumbnail } from "./OrbitThumbnail";
 
@@ -207,6 +208,7 @@ export function HomePage() {
           </ol>
         </div>
       </section>
+      <AppFooter />
     </main>
   );
 }

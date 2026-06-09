@@ -2,6 +2,7 @@
 
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { AppFooter } from "@/components/AppFooter";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { Simulator } from "@/components/Simulator";
 import { useSolutionText, useUiText } from "@/lib/i18n";
@@ -49,6 +50,7 @@ export function SolutionDetailPage({ solution }: { solution: ThreeBodySolution }
         </div>
       </header>
       <Simulator solution={solution} solutionName={text.name} />
+      <AppFooter />
     </main>
   );
 }
