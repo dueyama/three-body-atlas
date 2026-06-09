@@ -5,6 +5,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "ThreeBody Atlas",
   description: "Interactive 2D visualizations of known three-body solutions.",
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+  },
 };
 
 export default function RootLayout({

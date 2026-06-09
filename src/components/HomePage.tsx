@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Github, Orbit } from "lucide-react";
+import { ArrowRight, Github } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { solutions } from "@/data/solutions";
@@ -68,7 +68,7 @@ export function HomePage() {
       <section className="intro">
         <div className="topBar">
           <div className="brandLine">
-            <Orbit size={22} />
+            <span aria-hidden="true" className="brandIcon" />
             <span>{t.appTitle}</span>
           </div>
           <div className="topActions">
